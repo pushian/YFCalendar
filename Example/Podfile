@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'YFCalendar_Example', :exclusive => true do
+  pod 'YFCalendar', :path => '../'
+end
+
+target 'YFCalendar_Tests', :exclusive => true do
+  pod 'YFCalendar', :path => '../'
+
+  
+end
