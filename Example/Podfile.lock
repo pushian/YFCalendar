@@ -1,0 +1,14 @@
+PODS:
+  - YFCalendar (0.1.0)
+
+DEPENDENCIES:
+  - YFCalendar (from `../`)
+
+EXTERNAL SOURCES:
+  YFCalendar:
+    :path: ../
+
+SPEC CHECKSUMS:
+  YFCalendar: 09d93608457c0c53e245373f91a99e7298be85f1
+
+COCOAPODS: 0.39.0

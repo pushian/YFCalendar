@@ -1,0 +1,20 @@
+{
+  "name": "YFCalendar",
+  "version": "0.1.0",
+  "summary": "A short description of YFCalendar.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/pushian/YFCalendar",
+  "license": "MIT",
+  "authors": {
+    "pushian": "l@fooyo.sg"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/YFCalendar.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "YFCalendar/Classes/**/*",
+  "frameworks": "UIKit"
+}
