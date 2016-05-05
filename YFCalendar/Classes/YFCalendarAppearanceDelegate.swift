@@ -34,8 +34,9 @@ public protocol YFCalendarAppearanceDelegate: class {
     
     optional func dotMarkRadius() -> CGFloat
     optional func dotMarkOffsetFromDateLabel() -> CGFloat
-    optional func dotMarkUnselectedColor() -> UIColor
     optional func dotMarkSelectedColor() -> UIColor
+    optional func distanceBetweenDots() -> CGFloat
+
 
     optional func topLineColor() -> UIColor
     optional func topLineThickness() -> CGFloat

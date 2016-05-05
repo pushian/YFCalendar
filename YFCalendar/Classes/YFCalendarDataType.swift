@@ -4,8 +4,11 @@ import UIKit
 public enum ShapeType {
     case CircleWithFill
     case CircleWithOutFill
-    case UnselectedDotMark
-    case SelectedDotMark
+    case UnselectedSingleDotMark
+    case SelectedSingleDotMark
+    case UnselectedDoubleDotMark
+    case SelectedDoubleDotMark
+    case None
 }
 
 @objc public enum SelectionMode: Int {
@@ -16,4 +19,13 @@ public enum ShapeType {
 @objc public enum CalendarScrollDirection: Int {
     case Vertical = 1
     case Horizontal = 2
+}
+
+public struct DotedDate {
+    var date: NSDate?
+    var dotColors: [UIColor]?
+    
+    func equalsTo(object: DotedDate) -> Bool {
+        return self.date == object.date
+    }
 }

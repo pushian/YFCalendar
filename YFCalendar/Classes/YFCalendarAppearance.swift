@@ -35,9 +35,9 @@ final public class YFCalendarAppearance: NSObject {
     var selectionCircleFillColorToday: UIColor? = .redColor()
     
     var dotMarkRadius: CGFloat? = 1
-    var dotMarkUnselectedColor: UIColor? = .blackColor()
     var dotMarkSelectedColor: UIColor? = .whiteColor()
     var dotMarkOffsetFromDateLabel: CGFloat? = 1
+    var distanceBetweenDots: CGFloat? = 2
     
     var topLineColor: UIColor? = .lightGrayColor()
     var topLineThickness: CGFloat? = 1
@@ -62,8 +62,8 @@ final public class YFCalendarAppearance: NSObject {
         selectionCircleBorderColorOutsideMonth ~> delegate?.selectionCircleBorderColorOutsideMonth?()
         selectionCircleFillColorOutsideMonth ~> delegate?.selectionCircleFillColorOutsideMonth?()
         dotMarkRadius ~> delegate?.dotMarkRadius?()
-        dotMarkUnselectedColor ~> delegate?.dotMarkUnselectedColor?()
         dotMarkSelectedColor ~> delegate?.dotMarkSelectedColor?()
+        distanceBetweenDots ~> delegate?.distanceBetweenDots?()
         dotMarkOffsetFromDateLabel ~> delegate?.dotMarkOffsetFromDateLabel?()
         topLineColor ~> delegate?.topLineColor?()
         topLineThickness ~> delegate?.topLineThickness?()

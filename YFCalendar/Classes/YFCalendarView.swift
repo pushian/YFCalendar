@@ -14,25 +14,33 @@ public class YFCalendarView: YFCalendarBaseView {
     public func selectToday() {
         selectADate(NSDate())
     }
-    
-    public func addDotToDate(date: NSDate) {
+
+    public func updateDotToDate(date: NSDate, dotColorArrays: [UIColor]) {
         for index in 0..<3 {
             if let day = threeMonths[index].findTheOwnerWithDate(date) {
-                day.dotView.alpha = 1
+                day.updateDotView(dotColorArrays)
             }
         }
-        dotedDates.append(date.YFStandardFormatDate())
+        
+        var dotedDate = DotedDate()
+        dotedDate.date = date.YFStandardFormatDate()
+        dotedDate.dotColors = dotColorArrays
+        
+        if dotColorArrays.count > 0 {
+            for index in (0..<dotedDates.count) {
+                if dotedDates[index].equalsTo(dotedDate) {
+                    dotedDates[index] = dotedDate
+                    return
+                }
+            }
+            dotedDates.append(dotedDate)
+        } else {
+            dotedDates = dotedDates.filter { !$0.equalsTo(dotedDate) }
+        }
     }
     
     public func removeDotFromDate(date: NSDate) {
-        for index in 0..<3 {
-            if let day = threeMonths[index].findTheOwnerWithDate(date) {
-                day.dotView.alpha = 0
-            }
-        }
-        if let index = dotedDates.indexOf(date.YFStandardFormatDate()) {
-            dotedDates.removeAtIndex(index)
-        }
+        updateDotToDate(date, dotColorArrays: [UIColor]())
     }
     
     public func clearAllSelection() {
@@ -246,8 +254,10 @@ public class YFCalendarView: YFCalendarBaseView {
     private func dotDotedDayViews(inMonthView monthView: YFMonthView) {
         for week in monthView.weekViews {
             for day in week.dayViews {
-                if dotedDates.contains(day.date!) {
-                    day.dotView.alpha = 1
+                for each in dotedDates {
+                    if each.date == day.date {
+                        day.updateDotView(each.dotColors!)
+                    }
                 }
             }
         }
@@ -463,7 +473,8 @@ public class YFCalendarView: YFCalendarBaseView {
     
     public var selectedDayViews = [YFDayView]()
     public var selectedDates = [NSDate]()
-    public var dotedDates = [NSDate]()
+    
+    public var dotedDates = [DotedDate]()
     public var presentedMonthView: YFMonthView?
     
     //MARK: - Delegate Related Variables
