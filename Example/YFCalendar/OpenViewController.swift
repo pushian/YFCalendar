@@ -152,36 +152,41 @@ class OpenViewController: UIViewController {
         var format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
-        let date = format.dateFromString(dayStr!)
-        calendarView.sendTapToADate(date!)
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.sendTapToADate(date)
+        }
     }
     func selectADay() {
         var format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
-        let date = format.dateFromString(dayStr!)
-        calendarView.selectADate(date!)
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.selectADate(date)
+        }
     }
     func deselectADay() {
         var format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
-        let date = format.dateFromString(dayStr!)
-        calendarView.deselectADate(date!)
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.deselectADate(date)
+        }
     }
     func dotADay() {
         var format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
-        let date = format.dateFromString(dayStr!)
-        calendarView.addDotToDate(date!)
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.addDotToDate(date)
+        }
     }
     func unDotADay() {
         var format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
-        let date = format.dateFromString(dayStr!)
-        calendarView.removeDotFromDate(date!)
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.removeDotFromDate(date)
+        }
     }
     func selectToday() {
         calendarView.selectToday()
