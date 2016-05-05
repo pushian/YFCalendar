@@ -192,11 +192,22 @@ public class YFMonthView: YFCalendarBaseView {
     }
     
     //MARK: - Variables Open For User
-    public var components: NSDateComponents?
-
+    public var currentYear: Int? {
+        get {
+            return components?.year
+        }
+    }
+    
+    public var currentMonth: Int? {
+        get {
+            return components?.month
+        }
+    }
+    
     //MARK: - Public Variables
     typealias Week = Int
     typealias Day = Int
+    var components: NSDateComponents?
     var daysInsideTheMonth = [Week: [Day: NSDate]]()
     var daysOutsideTheMonth = [Week: [Day: NSDate]]()
     var monthIndex: Int!

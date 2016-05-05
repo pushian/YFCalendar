@@ -107,7 +107,6 @@ public class YFDayView: YFCalendarBaseView {
         }
     }
     //MARK: - Variables Open For User
-    public var components: NSDateComponents?
     public var date: NSDate? {
         didSet {
             if let date = date {
@@ -118,6 +117,7 @@ public class YFDayView: YFCalendarBaseView {
         }
     }
     //MARK: - Public Variables
+    var components: NSDateComponents?
     var dayIndex: Int!
     var isSelected: Bool? {
         didSet {
