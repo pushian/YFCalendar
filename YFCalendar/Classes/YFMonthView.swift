@@ -192,14 +192,14 @@ public class YFMonthView: YFCalendarBaseView {
     }
     
     //MARK: - Variables Open For User
-    
+    public var components: NSDateComponents?
+
     //MARK: - Public Variables
     typealias Week = Int
     typealias Day = Int
     var daysInsideTheMonth = [Week: [Day: NSDate]]()
     var daysOutsideTheMonth = [Week: [Day: NSDate]]()
     var monthIndex: Int!
-    var components: NSDateComponents?
     var weekViews = [YFWeekView]()
     var aDayInTheMonth: NSDate? {
         didSet {
