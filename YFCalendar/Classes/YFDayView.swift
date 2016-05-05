@@ -107,6 +107,16 @@ public class YFDayView: YFCalendarBaseView {
         }
     }
     //MARK: - Variables Open For User
+    public var components: NSDateComponents?
+    public var date: NSDate? {
+        didSet {
+            if let date = date {
+                let unit = yearUnit.union(monthUnit).union(dayUnit).union(weekUnit).union(weekdayUnit)
+                components = calendar.components(unit, fromDate: date)
+                dayLabelText = String(components!.day)
+            }
+        }
+    }
     //MARK: - Public Variables
     var dayIndex: Int!
     var isSelected: Bool? {
@@ -121,16 +131,7 @@ public class YFDayView: YFCalendarBaseView {
         }
     }
     var isInside: Bool?
-    var components: NSDateComponents?
-    var date: NSDate? {
-        didSet {
-            if let date = date {
-                let unit = yearUnit.union(monthUnit).union(dayUnit).union(weekUnit).union(weekdayUnit)
-                components = calendar.components(unit, fromDate: date)
-                dayLabelText = String(components!.day)
-            }
-        }
-    }
+    
     var dayLabel: UILabel! = {
         let t = UILabel()
         t.backgroundColor = UIColor.clearColor()

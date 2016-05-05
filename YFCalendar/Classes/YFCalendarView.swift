@@ -461,10 +461,10 @@ public class YFCalendarView: YFCalendarBaseView {
         }
     }
     
-    var selectedDayViews = [YFDayView]()
-    var selectedDates = [NSDate]()
-    var dotedDates = [NSDate]()
-    var presentedMonthView: YFMonthView?
+    public var selectedDayViews = [YFDayView]()
+    public var selectedDates = [NSDate]()
+    public var dotedDates = [NSDate]()
+    public var presentedMonthView: YFMonthView?
     
     //MARK: - Delegate Related Variables
     var calendarScrollDirection: CalendarScrollDirection {
