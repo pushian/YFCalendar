@@ -64,7 +64,23 @@ class OpenViewController: UIViewController {
     }()
     var buttonSix: UIButton! = {
         let t = UIButton(frame: CGRectMake(10, 250, 100, 30))
-        t.setTitle("Dot", forState: .Normal)
+        t.setTitle("Single Dot", forState: .Normal)
+        t.backgroundColor = .blackColor()
+        t.setTitleColor(.whiteColor(), forState: .Normal)
+        return t
+    }()
+    
+    var buttonNine: UIButton! = {
+        let t = UIButton(frame: CGRectMake(120, 250, 100, 30))
+        t.setTitle("Double Dot", forState: .Normal)
+        t.backgroundColor = .blackColor()
+        t.setTitleColor(.whiteColor(), forState: .Normal)
+        return t
+    }()
+    
+    var buttonTen: UIButton! = {
+        let t = UIButton(frame: CGRectMake(120, 290, 100, 30))
+        t.setTitle("Add Dot", forState: .Normal)
         t.backgroundColor = .blackColor()
         t.setTitleColor(.whiteColor(), forState: .Normal)
         return t
@@ -109,6 +125,8 @@ class OpenViewController: UIViewController {
         lowerView.addSubview(buttonSix)
         lowerView.addSubview(buttonSeven)
         lowerView.addSubview(buttonEight)
+        lowerView.addSubview(buttonNine)
+        lowerView.addSubview(buttonTen)
         
         setConstraints()
         calendarView.calendarViewDelegate = self
@@ -118,9 +136,12 @@ class OpenViewController: UIViewController {
         buttonThree.addTarget(self, action: #selector(tapADay), forControlEvents: .TouchUpInside)
         buttonFour.addTarget(self, action: #selector(selectADay), forControlEvents: .TouchUpInside)
         buttonFive.addTarget(self, action: #selector(deselectADay), forControlEvents: .TouchUpInside)
-        buttonSix.addTarget(self, action: #selector(dotADay), forControlEvents: .TouchUpInside)
+        buttonSix.addTarget(self, action: #selector(singleDotADay), forControlEvents: .TouchUpInside)
         buttonSeven.addTarget(self, action: #selector(unDotADay), forControlEvents: .TouchUpInside)
         buttonEight.addTarget(self, action: #selector(selectToday), forControlEvents: .TouchUpInside)
+        buttonNine.addTarget(self, action: #selector(doubleDotADay), forControlEvents: .TouchUpInside)
+        buttonTen.addTarget(self, action: #selector(addADotToADay), forControlEvents: .TouchUpInside)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -172,12 +193,28 @@ class OpenViewController: UIViewController {
             calendarView.deselectADate(date)
         }
     }
-    func dotADay() {
+    func singleDotADay() {
         var format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
         if let date = format.dateFromString(dayStr!) {
-            calendarView.addDotToDate(date)
+            calendarView.updateDotToDate(date, dotColorArrays: [UIColor.blueColor()])
+        }
+    }
+    func doubleDotADay() {
+        var format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.updateDotToDate(date, dotColorArrays: [UIColor.blueColor(), UIColor.greenColor()])
+        }
+    }
+    func addADotToADay() {
+        var format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.addADotToDate(date, dotColor: UIColor.blueColor())
         }
     }
     func unDotADay() {

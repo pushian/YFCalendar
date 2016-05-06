@@ -17,6 +17,28 @@ public class YFDayView: YFCalendarBaseView {
     
     //MARK: - Functions Open For User
     //MARK: - Public Functions
+    func addADot(dotColor: UIColor) {
+        switch dotView.shape! {
+        case .None:
+            dotView.colors = [dotColor]
+            if isSelected! {
+                dotView.shape = .SelectedSingleDotMark
+            } else {
+                dotView.shape = .UnselectedSingleDotMark
+            }
+            dotView.setNeedsDisplay()
+        case .UnselectedSingleDotMark:
+            dotView.colors?.append(dotColor)
+            dotView.shape = .UnselectedDoubleDotMark
+            dotView.setNeedsDisplay()
+        case .SelectedSingleDotMark:
+            dotView.colors?.append(dotColor)
+            dotView.shape = .SelectedDoubleDotMark
+            dotView.setNeedsDisplay()
+        default: break
+        }
+    }
+    
     func updateDotView(dotColorArrays: [UIColor]) {
         if dotColorArrays.count == 2 {
             if isSelected! {

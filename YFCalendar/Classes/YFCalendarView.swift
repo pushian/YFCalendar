@@ -14,7 +14,26 @@ public class YFCalendarView: YFCalendarBaseView {
     public func selectToday() {
         selectADate(NSDate())
     }
-
+    //TODO: Auto check whether the dot number is more than 2
+    public func addADotToDate(date: NSDate, dotColor: UIColor) {
+        for index in 0..<3 {
+            if let day = threeMonths[index].findTheOwnerWithDate(date) {
+                day.addADot(dotColor)
+            }
+        }
+        var dotedDate = DotedDate()
+        dotedDate.date = date.YFStandardFormatDate()
+        
+        for index in (0..<dotedDates.count) {
+            if dotedDates[index].equalsTo(dotedDate) {
+                dotedDates[index].dotColors!.append(dotColor)
+                return
+            }
+        }
+        dotedDate.dotColors = [dotColor]
+        dotedDates.append(dotedDate)
+    }
+    
     public func updateDotToDate(date: NSDate, dotColorArrays: [UIColor]) {
         for index in 0..<3 {
             if let day = threeMonths[index].findTheOwnerWithDate(date) {
