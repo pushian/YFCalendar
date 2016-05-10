@@ -89,6 +89,7 @@ public class YFDayView: YFCalendarBaseView {
     }
     
     private func updateDisplay() {
+        dayLabel.font = appearance.fontOfDateLabel
         if date == NSDate().YFStandardFormatDate() {
             dayLabel.textColor = appearance.colorOfDateToday
         } else {

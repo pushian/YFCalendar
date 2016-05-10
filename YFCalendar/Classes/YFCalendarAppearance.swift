@@ -54,6 +54,7 @@ final public class YFCalendarAppearance: NSObject {
         colorOfWeekend ~> delegate?.colorOfWeekend?()
         colorOfDateInsideMonth ~> delegate?.colorOfDateInsideMonth?()
         colorOfDateOutsideMonth ~> delegate?.colorOfDateOutsideMonth?()
+        colorOfDateToday ~> delegate?.colorOfDateToday?()
         fontOfDateLabel ~> delegate?.fontOfDateLabel?()
         selectionCircleRadius ~> delegate?.selectionCircleRadius?()
         selectionCircleBorderWidth ~> delegate?.selectionCircleBorderWidth?()
@@ -61,6 +62,9 @@ final public class YFCalendarAppearance: NSObject {
         selectionCircleFillColorInsideMonth ~> delegate?.selectionCircleFillColorInsideMonth?()
         selectionCircleBorderColorOutsideMonth ~> delegate?.selectionCircleBorderColorOutsideMonth?()
         selectionCircleFillColorOutsideMonth ~> delegate?.selectionCircleFillColorOutsideMonth?()
+        selectionCircleBorderColorToday ~> delegate?.selectionCircleBorderColorToday?()
+        selectionCircleFillColorToday ~> delegate?.selectionCircleFillColorToday?()
+
         dotMarkRadius ~> delegate?.dotMarkRadius?()
         dotMarkSelectedColor ~> delegate?.dotMarkSelectedColor?()
         distanceBetweenDots ~> delegate?.distanceBetweenDots?()

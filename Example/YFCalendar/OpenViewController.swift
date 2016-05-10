@@ -276,6 +276,21 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
         return true
     }
     
+    func fontOfDateLabel() -> UIFont {
+        return UIFont.systemFontOfSize(20)
+    }
+    
+    func colorOfDateToday() -> UIColor {
+        return .blueColor()
+    }
+    
+    func selectionCircleBorderColorToday() -> UIColor {
+        return .blueColor()
+    }
+    
+    func selectionCircleFillColorToday() -> UIColor {
+        return .blueColor()
+    }
 }
 
 
