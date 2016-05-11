@@ -138,8 +138,6 @@ public class YFCustomizedShape: UIView {
                 pathOne!.addLineToPoint(CGPoint(x: bounds.width, y: 0))
                 pathOne!.closePath()
                 pathOne!.stroke()
-                debugPrint(dayView.date)
-                debugPrint(bounds.width)
             case .None:
                 break
             }

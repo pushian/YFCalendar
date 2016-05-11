@@ -241,9 +241,9 @@ public class YFDayView: YFCalendarBaseView {
             selectionView.alpha = 0
         }
         if appearance.showTopLine! {
-            lineView.alpha = 0
-        } else {
             lineView.alpha = 1
+        } else {
+            lineView.alpha = 0
         }
         addSubview(selectionView!)
         addSubview(dotView)
