@@ -129,6 +129,17 @@ public class YFCustomizedShape: UIView {
                 pathOne!.fill()
                 pathTwo!.stroke()
                 pathTwo!.fill()
+                
+            case .TopLine:
+                pathOne = UIBezierPath()
+                pathOne!.lineWidth = appearance.topLineThickness!
+                appearance.topLineColor!.setStroke()
+                pathOne!.moveToPoint(CGPoint(x: 0, y: 0))
+                pathOne!.addLineToPoint(CGPoint(x: bounds.width, y: 0))
+                pathOne!.closePath()
+                pathOne!.stroke()
+                debugPrint(dayView.date)
+                debugPrint(bounds.width)
             case .None:
                 break
             }

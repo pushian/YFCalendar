@@ -47,6 +47,7 @@ public class YFWeekView: YFCalendarBaseView {
         calendarView = monthView.calendarView
         self.weekIndex = weekIndex
         super.init(frame: frame)
+        backgroundColor = .whiteColor()
         loadDays()
     }
     

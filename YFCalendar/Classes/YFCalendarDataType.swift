@@ -8,6 +8,7 @@ public enum ShapeType {
     case SelectedSingleDotMark
     case UnselectedDoubleDotMark
     case SelectedDoubleDotMark
+    case TopLine
     case None
 }
 

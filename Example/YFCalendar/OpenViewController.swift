@@ -13,7 +13,7 @@ import YFCalendar
 class OpenViewController: UIViewController {
     
     var calendarView: YFCalendarView! = {
-        let t = YFCalendarView(frame: CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 300))
+        let t = YFCalendarView(frame: CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 230))
         t.backgroundColor = UIColor.orangeColor()
         return t
     }()
@@ -290,12 +290,15 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     func selectionCircleFillColorToday() -> UIColor {
         return .blueColor()
     }
-    func topLineThickness() -> CGFloat {
-        return 0.5
-    }
-    
     func showTopLine() -> Bool {
         return false
+    }
+    
+    func topLineColor() -> UIColor {
+        return .redColor()
+    }
+    func topLineThickness() -> CGFloat {
+        return 0.5
     }
 }
 

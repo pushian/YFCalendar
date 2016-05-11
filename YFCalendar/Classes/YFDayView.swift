@@ -202,7 +202,8 @@ public class YFDayView: YFCalendarBaseView {
         return t
     }()
     var dotView: YFCustomizedShape!
-
+    var lineView: YFCustomizedShape!
+    
     //MARK: - Private Variables
     private var dayLabelText: String? {
         didSet {
@@ -232,15 +233,21 @@ public class YFDayView: YFCalendarBaseView {
         selectionView = YFCustomizedShape(dayView: self, shape: .CircleWithFill, frame: selectionViewFrame)
         let dotFrame = CGRectMake(0, 0, frame.width, frame.height)
         dotView = YFCustomizedShape(dayView: self, shape: .None, frame: dotFrame)
-        
+        lineView = YFCustomizedShape(dayView: self, shape: .TopLine, frame: dotFrame)
         if date == NSDate().YFStandardFormatDate() {
             selectionView.shape = .CircleWithOutFill
             selectionView.setNeedsDisplay()
         } else {
             selectionView.alpha = 0
         }
+        if appearance.showTopLine! {
+            lineView.alpha = 0
+        } else {
+            lineView.alpha = 1
+        }
         addSubview(selectionView!)
         addSubview(dotView)
+        addSubview(lineView)
         addSubview(dayLabel)
         setConstrains()
         updateDisplay()
@@ -248,20 +255,6 @@ public class YFDayView: YFCalendarBaseView {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override public func drawRect(rect: CGRect) {
-        if appearance.showTopLine! {
-            var path = UIBezierPath()
-            path.lineWidth = appearance.topLineThickness!
-            appearance.topLineColor!.setStroke()
-
-            //draw the path and make visible
-            path.moveToPoint(CGPoint(x: 0, y: 0))
-            path.addLineToPoint(CGPoint(x: bounds.width, y: 0))
-            path.closePath()
-            path.stroke()
-        }
     }
 
 }
