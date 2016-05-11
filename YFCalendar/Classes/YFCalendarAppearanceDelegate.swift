@@ -40,4 +40,5 @@ public protocol YFCalendarAppearanceDelegate: class {
 
     optional func topLineColor() -> UIColor
     optional func topLineThickness() -> CGFloat
+    optional func showTopLine() -> Bool
 }

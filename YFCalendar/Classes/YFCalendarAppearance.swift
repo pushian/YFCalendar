@@ -41,7 +41,8 @@ final public class YFCalendarAppearance: NSObject {
     
     var topLineColor: UIColor? = .lightGrayColor()
     var topLineThickness: CGFloat? = 1
-
+    var showTopLine: Bool? = true
+    
     weak var delegate: YFCalendarAppearanceDelegate? {
         didSet {
             setupAppearance()
@@ -71,6 +72,8 @@ final public class YFCalendarAppearance: NSObject {
         dotMarkOffsetFromDateLabel ~> delegate?.dotMarkOffsetFromDateLabel?()
         topLineColor ~> delegate?.topLineColor?()
         topLineThickness ~> delegate?.topLineThickness?()
+        showTopLine ~> delegate?.showTopLine?()
+
     }
 }
 

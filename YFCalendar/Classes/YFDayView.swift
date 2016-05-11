@@ -251,15 +251,17 @@ public class YFDayView: YFCalendarBaseView {
     }
     
     override public func drawRect(rect: CGRect) {
-        var path = UIBezierPath()
-        path.lineWidth = appearance.topLineThickness!
-        appearance.topLineColor!.setStroke()
+        if appearance.showTopLine! {
+            var path = UIBezierPath()
+            path.lineWidth = appearance.topLineThickness!
+            appearance.topLineColor!.setStroke()
 
-        //draw the path and make visible
-        path.moveToPoint(CGPoint(x: 0, y: 0))
-        path.addLineToPoint(CGPoint(x: bounds.width, y: 0))
-        path.closePath()
-        path.stroke()
+            //draw the path and make visible
+            path.moveToPoint(CGPoint(x: 0, y: 0))
+            path.addLineToPoint(CGPoint(x: bounds.width, y: 0))
+            path.closePath()
+            path.stroke()
+        }
     }
 
 }

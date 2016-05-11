@@ -290,6 +290,13 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     func selectionCircleFillColorToday() -> UIColor {
         return .blueColor()
     }
+    func topLineThickness() -> CGFloat {
+        return 0.5
+    }
+    
+    func showTopLine() -> Bool {
+        return false
+    }
 }
 
 
