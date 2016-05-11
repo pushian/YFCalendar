@@ -234,7 +234,6 @@ extension OpenViewController: YFCalendarViewDelegate {
     func dateSelectionMode() -> SelectionMode {
         return .Multiple
     }
-    
     func turnOnAnimationOnDay() -> Bool {
         return true
     }
@@ -273,7 +272,7 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     }
     
     func showDateOutsideOfTheCurrentMonth() -> Bool {
-        return true
+        return false
     }
     
     func fontOfDateLabel() -> UIFont {

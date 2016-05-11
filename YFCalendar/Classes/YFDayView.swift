@@ -226,7 +226,7 @@ public class YFDayView: YFCalendarBaseView {
         appearance = calendarView.appearance!
         self.dayIndex = dayIndex
         super.init(frame: frame)
-        
+        self.backgroundColor = .whiteColor()
         checkWhetherIsInside()
         let selectionViewFrame = CGRectMake(0, 0, frame.width, frame.height)
         selectionView = YFCustomizedShape(dayView: self, shape: .CircleWithFill, frame: selectionViewFrame)
@@ -248,6 +248,18 @@ public class YFDayView: YFCalendarBaseView {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override public func drawRect(rect: CGRect) {
+        var path = UIBezierPath()
+        path.lineWidth = appearance.topLineThickness!
+        appearance.topLineColor!.setStroke()
+
+        //draw the path and make visible
+        path.moveToPoint(CGPoint(x: 0, y: 0))
+        path.addLineToPoint(CGPoint(x: bounds.width, y: 0))
+        path.closePath()
+        path.stroke()
     }
 
 }

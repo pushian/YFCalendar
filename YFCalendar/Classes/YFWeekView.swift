@@ -41,16 +41,12 @@ public class YFWeekView: YFCalendarBaseView {
     var weekIndex: Int!
     var dayViews = [YFDayView]()
     //MARK: - Private Variables
-    private var topLineView: UIView?
     //MARK: - Life Cycle
     init(monthView: YFMonthView, frame: CGRect, weekIndex: Int) {
         self.monthView = monthView
         calendarView = monthView.calendarView
         self.weekIndex = weekIndex
         super.init(frame: frame)
-        topLineView = UIView(frame: CGRectMake(0, 0, frame.width, calendarView.appearance!.topLineThickness!))
-        topLineView?.backgroundColor = calendarView.appearance!.topLineColor!
-        addSubview(topLineView!)
         loadDays()
     }
     
