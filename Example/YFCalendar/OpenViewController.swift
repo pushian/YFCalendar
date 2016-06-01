@@ -242,6 +242,9 @@ extension OpenViewController: YFCalendarViewDelegate {
         return .Vertical
     }
     
+    func autoSelectToday() -> Bool {
+        return false
+    }
     func didEndPrensentingTheMonth() {
     }
     

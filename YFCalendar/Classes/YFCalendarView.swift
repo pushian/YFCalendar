@@ -486,7 +486,11 @@ public class YFCalendarView: YFCalendarBaseView {
             } else {
                 scrollView.contentSize = CGSize(width: scrollViewWidth, height: scrollViewHeight * 3)
             }
-            initialLoad(NSDate(),autoSelect: true)
+            if autoSelectToday {
+                initialLoad(NSDate(),autoSelect: true)
+            } else {
+                initialLoad(NSDate(),autoSelect: false)
+            }
         }
     }
     
@@ -529,6 +533,13 @@ public class YFCalendarView: YFCalendarBaseView {
         }
     }
     
+    var autoSelectToday: Bool {
+        if let delegate = calendarViewDelegate, let autoSelectToday = delegate.autoSelectToday?() {
+            return autoSelectToday
+        } else {
+            return true
+        }
+    }
     //MARK: - Other Public Variables
     var appearance: YFCalendarAppearance? {
         didSet {
