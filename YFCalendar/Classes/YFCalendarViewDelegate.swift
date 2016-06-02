@@ -18,5 +18,6 @@ public protocol YFCalendarViewDelegate: class {
     optional func autoSelectTheDayForMonthSwitchInTheSingleMode() -> Bool
     optional func didEndPrensentingTheMonth() -> Void
     optional func didEndSelectingADay(selectedDay: YFDayView) -> Void
+    optional func didEndDeselectingADay(selectedDay: YFDayView) -> Void
     optional func autoSelectToday() -> Bool
 }

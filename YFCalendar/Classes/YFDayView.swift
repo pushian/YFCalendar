@@ -167,6 +167,9 @@ public class YFDayView: YFCalendarBaseView {
                 self.selectionView?.alpha = 0
             }
         }
+        if isInside! {
+            calendarView.calendarViewDelegate?.didEndDeselectingADay?(self)
+        }
     }
     //MARK: - Variables Open For User
     public var date: NSDate? {
