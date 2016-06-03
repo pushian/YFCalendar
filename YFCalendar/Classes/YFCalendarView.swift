@@ -533,6 +533,14 @@ public class YFCalendarView: YFCalendarBaseView {
         }
     }
     
+    var autoScrollToTheNewMonth: Bool {
+        if let delegate = calendarViewDelegate, let autoScrollToTheNewMonth = delegate.autoScrollToTheNewMonth?() {
+            return autoScrollToTheNewMonth
+        } else {
+            return true
+        }
+    }
+    
     var autoSelectToday: Bool {
         if let delegate = calendarViewDelegate, let autoSelectToday = delegate.autoSelectToday?() {
             return autoSelectToday

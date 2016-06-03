@@ -35,10 +35,14 @@ public class YFMonthView: YFCalendarBaseView {
         var theSameDay: YFDayView?
         if !day.isInside! {
             if day.date?.timeIntervalSince1970 > aDayInTheMonth?.timeIntervalSince1970 {
-                calendarView.presentNextMonth(withTarget: true)
+                if calendarView.autoScrollToTheNewMonth {
+                    calendarView.presentNextMonth(withTarget: true)
+                }
                 theSameDay = calendarView.threeMonths[2].weekViews[0].findTheOwnerWithDate(day.date!)
             } else {
-                calendarView.presentPreviousMonth(withTarget: true)
+                if calendarView.autoScrollToTheNewMonth {
+                    calendarView.presentPreviousMonth(withTarget: true)
+                }
                 theSameDay = calendarView.threeMonths[0].weekViews[calendarView.threeMonths[0].numberOfWeeks() - 1].findTheOwnerWithDate(day.date!)
             }
         } else {
@@ -58,18 +62,18 @@ public class YFMonthView: YFCalendarBaseView {
             }
             calendarView.selectedDayViews.removeAll()
             calendarView.selectedDates.removeAll()
+            calendarView.selectedDayViews.append(day)
+            calendarView.selectedDates.append(day.date!)
             if let theSameDay = theSameDay {
                 calendarView.selectedDayViews.append(theSameDay)
                 theSameDay.isSelected = true
             }
-            calendarView.selectedDayViews.append(day)
-            calendarView.selectedDates.append(day.date!)
             day.isSelected = true
         case .Multiple:
             //            day.isSelected = day.isSelected == nil ? true : !day.isSelected!
-            if let theSameDay = theSameDay {
-                theSameDay.isSelected = theSameDay.isSelected == nil ? true : !theSameDay.isSelected!
-            }
+//            if let theSameDay = theSameDay {
+//                theSameDay.isSelected = theSameDay.isSelected == nil ? true : !theSameDay.isSelected!
+//            }
             //            if day.isSelected! {
             //                calendarView.selectedDayViews.append(day)
             //                if let theSameDay = theSameDay {
@@ -94,6 +98,15 @@ public class YFMonthView: YFCalendarBaseView {
                 } else {
                     calendarView.selectedDayViews.append(day)
                     calendarView.selectedDates.append(day.date!)
+                    if let theSameDay = theSameDay {
+                        calendarView.selectedDayViews.append(theSameDay)
+                    }
+                }
+//                if let theSameDay = theSameDay {
+//                    theSameDay.isSelected = theSameDay.isSelected == nil ? true : !theSameDay.isSelected!
+//                }
+                if let theSameDay = theSameDay {
+                    theSameDay.isSelected = !selected
                 }
                 day.isSelected = !selected
             } else {
@@ -101,6 +114,9 @@ public class YFMonthView: YFCalendarBaseView {
                 calendarView.selectedDates.append(day.date!)
                 if let theSameDay = theSameDay {
                     calendarView.selectedDayViews.append(theSameDay)
+                }
+                if let theSameDay = theSameDay {
+                    theSameDay.isSelected = true
                 }
                 day.isSelected = true
             }

@@ -249,10 +249,15 @@ extension OpenViewController: YFCalendarViewDelegate {
     }
     
     func didEndSelectingADay(selectedDay: YFDayView) {
+        
     }
     
     func didEndDeselectingADay(selectedDay: YFDayView) {
         debugPrint("deselect")
+    }
+    
+    func autoScrollToTheNewMonth() -> Bool {
+        return false
     }
 }
 
@@ -279,7 +284,7 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     }
     
     func showDateOutsideOfTheCurrentMonth() -> Bool {
-        return false
+        return true
     }
     
     func fontOfDateLabel() -> UIFont {
