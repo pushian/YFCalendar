@@ -124,21 +124,27 @@ public class YFCalendarView: YFCalendarBaseView {
             }
         case .Multiple:
             if selectedDates.contains(date.YFStandardFormatDate()) {
-                switch components {
-                case (presentedMonthView?.components)!:
-                    let day = presentedMonthView?.findTheOwnerWithDate(date)
-                    day?.isSelected = false
-                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
-                case threeMonths[0].components!:
-                    let day = threeMonths[0].findTheOwnerWithDate(date)
-                    day?.isSelected = false
-                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
-                case threeMonths[2].components!:
-                    let day = threeMonths[2].findTheOwnerWithDate(date)
-                    day?.isSelected = false
-                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
-                default:
-                    break
+//                switch components {
+//                case (presentedMonthView?.components)!:
+//                    let day = presentedMonthView?.findTheOwnerWithDate(date)
+//                    day?.isSelected = false
+//                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
+//                case threeMonths[0].components!:
+//                    let day = threeMonths[0].findTheOwnerWithDate(date)
+//                    day?.isSelected = false
+//                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
+//                case threeMonths[2].components!:
+//                    let day = threeMonths[2].findTheOwnerWithDate(date)
+//                    day?.isSelected = false
+//                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
+//                default:
+//                    break
+//                }
+                for each in threeMonths {
+                    if let day = each.findTheOwnerWithDate(date) {
+                        day.isSelected = false
+                        selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day)!)
+                    }
                 }
                 selectedDates.removeAtIndex(selectedDates.indexOf(date.YFStandardFormatDate())!)
             }
