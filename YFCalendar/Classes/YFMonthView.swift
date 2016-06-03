@@ -59,30 +59,52 @@ public class YFMonthView: YFCalendarBaseView {
             calendarView.selectedDayViews.removeAll()
             calendarView.selectedDates.removeAll()
             if let theSameDay = theSameDay {
-                theSameDay.isSelected = true
                 calendarView.selectedDayViews.append(theSameDay)
+                theSameDay.isSelected = true
             }
-            day.isSelected = true
             calendarView.selectedDayViews.append(day)
             calendarView.selectedDates.append(day.date!)
+            day.isSelected = true
         case .Multiple:
-            day.isSelected = day.isSelected == nil ? true : !day.isSelected!
+            //            day.isSelected = day.isSelected == nil ? true : !day.isSelected!
             if let theSameDay = theSameDay {
                 theSameDay.isSelected = theSameDay.isSelected == nil ? true : !theSameDay.isSelected!
             }
-            if day.isSelected! {
+            //            if day.isSelected! {
+            //                calendarView.selectedDayViews.append(day)
+            //                if let theSameDay = theSameDay {
+            //                    calendarView.selectedDayViews.append(theSameDay)
+            //                }
+            //                calendarView.selectedDates.append(day.date!)
+            //            } else {
+            //                calendarView.selectedDayViews.removeAtIndex(calendarView.selectedDayViews.indexOf(day)!)
+            //                if let theSameDay = theSameDay {
+            //                    calendarView.selectedDayViews.removeAtIndex(calendarView.selectedDayViews.indexOf(theSameDay)!)
+            //                }
+            //                calendarView.selectedDates.removeAtIndex(calendarView.selectedDates.indexOf(day.date!)!)
+            //            }
+            
+            if let selected = day.isSelected {
+                if selected {
+                    calendarView.selectedDayViews.removeAtIndex(calendarView.selectedDayViews.indexOf(day)!)
+                    calendarView.selectedDates.removeAtIndex(calendarView.selectedDates.indexOf(day.date!)!)
+                    if let theSameDay = theSameDay {
+                        calendarView.selectedDayViews.removeAtIndex(calendarView.selectedDayViews.indexOf(theSameDay)!)
+                    }
+                } else {
+                    calendarView.selectedDayViews.append(day)
+                    calendarView.selectedDates.append(day.date!)
+                }
+                day.isSelected = !selected
+            } else {
                 calendarView.selectedDayViews.append(day)
+                calendarView.selectedDates.append(day.date!)
                 if let theSameDay = theSameDay {
                     calendarView.selectedDayViews.append(theSameDay)
                 }
-                calendarView.selectedDates.append(day.date!)
-            } else {
-                calendarView.selectedDayViews.removeAtIndex(calendarView.selectedDayViews.indexOf(day)!)
-                if let theSameDay = theSameDay {
-                    calendarView.selectedDayViews.removeAtIndex(calendarView.selectedDayViews.indexOf(theSameDay)!)
-                }
-                calendarView.selectedDates.removeAtIndex(calendarView.selectedDates.indexOf(day.date!)!)
+                day.isSelected = true
             }
+            
         }
     }
     

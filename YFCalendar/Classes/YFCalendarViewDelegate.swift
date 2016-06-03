@@ -16,6 +16,7 @@ public protocol YFCalendarViewDelegate: class {
     optional func calendarScrollDirection() -> CalendarScrollDirection
     optional func turnOnAnimationOnDay() -> Bool
     optional func autoSelectTheDayForMonthSwitchInTheSingleMode() -> Bool
+//    optional func autoTrans() -> Bool
     optional func didEndPrensentingTheMonth() -> Void
     optional func didEndSelectingADay(selectedDay: YFDayView) -> Void
     optional func didEndDeselectingADay(selectedDay: YFDayView) -> Void
