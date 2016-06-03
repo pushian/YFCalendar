@@ -250,7 +250,6 @@ extension OpenViewController: YFCalendarViewDelegate {
     
     func didEndSelectingADay(selectedDay: YFDayView) {
         calendarView.deselectADate(selectedDay.date!)
-        debugPrint("finish delegate")
     }
     
     func didEndDeselectingADay(selectedDay: YFDayView) {

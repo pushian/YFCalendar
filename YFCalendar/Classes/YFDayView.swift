@@ -122,7 +122,6 @@ public class YFDayView: YFCalendarBaseView {
     
     
     private func beSelected (animation: Bool) {
-        debugPrint("apply selection")
         dayLabel.textColor = UIColor.whiteColor()
         switch dotView.shape! {
         case .UnselectedSingleDotMark:
@@ -267,7 +266,6 @@ public class YFDayView: YFCalendarBaseView {
 // MARK: - Animation
 extension YFDayView {
     private func selectWithBubbleEffect() {
-        debugPrint("select with bubble")
         selectionView?.alpha = 1
         selectionView?.transform = CGAffineTransformMakeScale(0.5, 0.5)
         dayLabel?.transform = CGAffineTransformMakeScale(0.5, 0.5)

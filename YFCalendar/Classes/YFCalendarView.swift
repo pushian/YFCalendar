@@ -70,6 +70,7 @@ public class YFCalendarView: YFCalendarBaseView {
         selectedDates.removeAll()
     }
     
+    // TODO: - Think again about how to write these three functions
     public func sendTapToADate(date: NSDate) {
         let unit = yearUnit.union(monthUnit)
         let components = calendar.components(unit, fromDate: date)
