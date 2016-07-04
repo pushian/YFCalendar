@@ -231,37 +231,20 @@ class OpenViewController: UIViewController {
 }
 
 extension OpenViewController: YFCalendarViewDelegate {
-    func dateSelectionMode() -> SelectionMode {
-        return .Multiple
-    }
-    func turnOnAnimationOnDay() -> Bool {
+    func calendarViewAutoSelectToday(calenderView: YFCalendarView) -> Bool {
         return true
     }
     
-    func calendarScrollDirection() -> CalendarScrollDirection {
-        return .Vertical
-    }
-    
-    func autoSelectToday() -> Bool {
+    func calendarViewShowDateOutsideOfTheCurrentMonth(calenderView: YFCalendarView) -> Bool {
         return false
     }
-    func didEndPrensentingTheMonth() {
-    }
     
-    func didEndSelectingADay(selectedDay: YFDayView) {
-//        calendarView.deselectADate(selectedDay.date!)
-    }
-    
-    func didEndDeselectingADay(selectedDay: YFDayView) {
-    }
-    
-    func autoScrollToTheNewMonth() -> Bool {
-        return false
+    func calendarViewSetDateSelectionMode(calenderView: YFCalendarView) -> SelectionMode {
+        return .Multiple
     }
 }
 
 extension OpenViewController: YFCalendarAppearanceDelegate {
-    
     func dotMarkRadius() -> CGFloat {
         return 2
     }
@@ -280,10 +263,6 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     
     func autoSelectTheDayForMonthSwitchInTheSingleMode() -> Bool {
         return false
-    }
-    
-    func showDateOutsideOfTheCurrentMonth() -> Bool {
-        return true
     }
     
     func fontOfDateLabel() -> UIFont {
@@ -311,14 +290,10 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     func topLineThickness() -> CGFloat {
         return 0.5
     }
-    
-    func colorOfADate(selectedDay: YFDayView) -> UIColor? {
-        return .blueColor()
-    }
-    
     func disableADate(selectedDay: YFDayView) -> Bool {
-        return false
+        return true
     }
 }
+
 
 

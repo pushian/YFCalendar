@@ -125,22 +125,6 @@ public class YFCalendarView: YFCalendarBaseView {
             }
         case .Multiple:
             if selectedDates.contains(date.YFStandardFormatDate()) {
-//                switch components {
-//                case (presentedMonthView?.components)!:
-//                    let day = presentedMonthView?.findTheOwnerWithDate(date)
-//                    day?.isSelected = false
-//                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
-//                case threeMonths[0].components!:
-//                    let day = threeMonths[0].findTheOwnerWithDate(date)
-//                    day?.isSelected = false
-//                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
-//                case threeMonths[2].components!:
-//                    let day = threeMonths[2].findTheOwnerWithDate(date)
-//                    day?.isSelected = false
-//                    selectedDayViews.removeAtIndex(selectedDayViews.indexOf(day!)!)
-//                default:
-//                    break
-//                }
                 for each in threeMonths {
                     if let day = each.findTheOwnerWithDate(date) {
                         day.isSelected = false
@@ -197,7 +181,7 @@ public class YFCalendarView: YFCalendarBaseView {
                 self.scrollView.addSubview(newMonth)
                 self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
                 self.dotDotedDayViews(inMonthView: newMonth)
-                self.calendarViewDelegate?.didEndPrensentingTheMonth?()
+                self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
                 self.pageLoadingEnabled = true
             }
         }
@@ -249,7 +233,7 @@ public class YFCalendarView: YFCalendarBaseView {
                 self.scrollView.addSubview(newMonth)
                 self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
                 self.dotDotedDayViews(inMonthView: newMonth)
-                self.calendarViewDelegate?.didEndPrensentingTheMonth?()
+                self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
                 self.pageLoadingEnabled = true
             }
         }
@@ -325,7 +309,7 @@ public class YFCalendarView: YFCalendarBaseView {
             scrollView.addSubview(newMonth)
             self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
             self.dotDotedDayViews(inMonthView: newMonth)
-            calendarViewDelegate?.didEndPrensentingTheMonth?()
+            self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
             pageLoadingEnabled = true
         }
     }
@@ -365,7 +349,7 @@ public class YFCalendarView: YFCalendarBaseView {
             scrollView.addSubview(newMonth)
             self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
             self.dotDotedDayViews(inMonthView: newMonth)
-            calendarViewDelegate?.didEndPrensentingTheMonth?()
+            self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
             pageLoadingEnabled = true
         }
     }
@@ -509,52 +493,68 @@ public class YFCalendarView: YFCalendarBaseView {
     
     //MARK: - Delegate Related Variables
     var calendarScrollDirection: CalendarScrollDirection {
-        if let delegate = calendarViewDelegate, let calendarScrollDirection = delegate.calendarScrollDirection?() {
-            return calendarScrollDirection
-        } else {
-            return .Horizontal
+        if let delegate = calendarViewDelegate {
+            if let calendarScrollDirection = delegate.calendarViewSetScrollDirection?(self) {
+                return calendarScrollDirection
+            }
         }
+        return .Horizontal
     }
     
     var dateSelectionMode: SelectionMode {
-        if let delegate = calendarViewDelegate, let dateSelectionMode = delegate.dateSelectionMode?() {
-            return dateSelectionMode
-        } else {
-            return .Single
+        if let delegate = calendarViewDelegate {
+            if let dateSelectionMode = delegate.calendarViewSetDateSelectionMode?(self) {
+                return dateSelectionMode
+            }
         }
+        return .Single
     }
 
     var turnOnAnimationOnDay: Bool {
-        if let delegate = calendarViewDelegate, let turnOnAnimationOnDay = delegate.turnOnAnimationOnDay?() {
-            return turnOnAnimationOnDay
-        } else {
-            return true
+        if let delegate = calendarViewDelegate {
+            if let turnOnAnimationOnDay = delegate.calendarViewTurnOnSelectionAnimation?(self) {
+                return turnOnAnimationOnDay
+            }
         }
+        return true
     }
     
     var autoSelectTheDayForMonthSwitchInTheSingleMode: Bool {
-        if let delegate = calendarViewDelegate, let autoSelectTheDayForMonthSwitchInTheSingleMode = delegate.autoSelectTheDayForMonthSwitchInTheSingleMode?() {
+        if let delegate = calendarViewDelegate {
+            if let autoSelectTheDayForMonthSwitchInTheSingleMode = delegate.calendarView?(self, autoSelectTheFirstDateOfTheNextMonthBasedOnSelectionMode: dateSelectionMode) {
             return autoSelectTheDayForMonthSwitchInTheSingleMode
-        } else {
-            return true
+            }
         }
+        return true
     }
     
     var autoScrollToTheNewMonth: Bool {
-        if let delegate = calendarViewDelegate, let autoScrollToTheNewMonth = delegate.autoScrollToTheNewMonth?() {
-            return autoScrollToTheNewMonth
-        } else {
-            return true
+        if let delegate = calendarViewDelegate {
+            if let autoScrollToTheNewMonth = delegate.calendarViewAutoScrollToTheNewMonthWhenTabTheDateOutsideOfTheCurrentMonth?(self) {
+                return autoScrollToTheNewMonth
+            }
         }
+        return true
     }
     
     var autoSelectToday: Bool {
-        if let delegate = calendarViewDelegate, let autoSelectToday = delegate.autoSelectToday?() {
-            return autoSelectToday
-        } else {
-            return true
+        if let delegate = calendarViewDelegate {
+            if let autoSelectToday = delegate.calendarViewAutoSelectToday?(self) {
+                return autoSelectToday
+            }
         }
+        return true
     }
+    
+    var showDateOutside: Bool {
+        if let delegate = calendarViewDelegate {
+            if let showDateOutside = delegate.calendarViewShowDateOutsideOfTheCurrentMonth?(self){
+                return showDateOutside
+            }
+        }
+        return true
+    }
+    
     //MARK: - Other Public Variables
     var appearance: YFCalendarAppearance? {
         didSet {
@@ -656,7 +656,7 @@ public class YFCalendarView: YFCalendarBaseView {
             presentedMonthView?.tapActionOnADay(currentDayView!)
         }
         updateFrame(toHeight: CGFloat(threeMonths[1].numberOfWeeks()) * appearance!.weekHeight, withAnimation: true)
-        calendarViewDelegate?.didEndPrensentingTheMonth?()
+        calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: presentedMonthView!)
     }
     
 }

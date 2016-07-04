@@ -12,13 +12,15 @@ import Foundation
 
 @objc
 public protocol YFCalendarViewDelegate: class {
-    optional func dateSelectionMode() -> SelectionMode
-    optional func calendarScrollDirection() -> CalendarScrollDirection
-    optional func turnOnAnimationOnDay() -> Bool
-    optional func autoSelectTheDayForMonthSwitchInTheSingleMode() -> Bool
-    optional func autoScrollToTheNewMonth() -> Bool
-    optional func didEndPrensentingTheMonth() -> Void
-    optional func didEndSelectingADay(selectedDay: YFDayView) -> Void
-    optional func didEndDeselectingADay(selectedDay: YFDayView) -> Void
-    optional func autoSelectToday() -> Bool
+    optional func calendarView(calenderView: YFCalendarView, autoSelectTheFirstDateOfTheNextMonthBasedOnSelectionMode: SelectionMode) -> Bool
+    optional func calendarView(calenderView: YFCalendarView, didPrensentTheMonth currentMonth: YFMonthView) -> Void
+    optional func calendarView(calenderView: YFCalendarView, didSelectADay selectedDay: YFDayView) -> Void
+    optional func calendarView(calenderView: YFCalendarView, didDeselectADay deselectedDay: YFDayView) -> Void
+
+    optional func calendarViewSetDateSelectionMode(calenderView: YFCalendarView) -> SelectionMode
+    optional func calendarViewSetScrollDirection(calenderView: YFCalendarView) -> CalendarScrollDirection
+    optional func calendarViewTurnOnSelectionAnimation(calenderView: YFCalendarView) -> Bool
+    optional func calendarViewAutoScrollToTheNewMonthWhenTabTheDateOutsideOfTheCurrentMonth(calenderView: YFCalendarView) -> Bool
+    optional func calendarViewAutoSelectToday(calenderView: YFCalendarView) -> Bool
+    optional func calendarViewShowDateOutsideOfTheCurrentMonth(calenderView: YFCalendarView) -> Bool
 }

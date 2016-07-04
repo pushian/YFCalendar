@@ -13,9 +13,7 @@ final public class YFCalendarAppearance: NSObject {
     
     var weekHeight: CGFloat = 0
     var dayWidth: CGFloat = 0
-    
-    var showDateOutsideOfTheCurrentMonth: Bool? = true
-    
+
     var colorOfWeekday: UIColor? = .blackColor()
     var colorOfWeekend: UIColor? = .lightGrayColor()
 
@@ -50,7 +48,6 @@ final public class YFCalendarAppearance: NSObject {
     }
     
     func setupAppearance() {
-        showDateOutsideOfTheCurrentMonth ~> delegate?.showDateOutsideOfTheCurrentMonth?()
         colorOfWeekday ~> delegate?.colorOfWeekday?()
         colorOfWeekend ~> delegate?.colorOfWeekend?()
         colorOfDateInsideMonth ~> delegate?.colorOfDateInsideMonth?()

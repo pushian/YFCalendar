@@ -12,6 +12,12 @@ public enum ShapeType {
     case None
 }
 
+@objc public enum DateType: Int {
+    case InsideCurrentMonth = 1
+    case OutsideCurrentMonth = 2
+    case Today = 3
+}
+
 @objc public enum SelectionMode: Int {
     case Single = 1
     case Multiple = 2

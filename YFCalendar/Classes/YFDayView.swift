@@ -96,7 +96,7 @@ public class YFDayView: YFCalendarBaseView {
             textColor = appearance.colorOfDateToday
         } else {
             if isInside! {
-                if !appearance.showDateOutsideOfTheCurrentMonth! {
+                if !calendarView.showDateOutside {
                     if components?.weekday == 1 || components?.weekday == 7 {
                         textColor = appearance.colorOfWeekend
                     } else {
@@ -107,7 +107,7 @@ public class YFDayView: YFCalendarBaseView {
                 }
             } else {
                 textColor = appearance.colorOfDateOutsideMonth
-                if !appearance.showDateOutsideOfTheCurrentMonth! {
+                if !calendarView.showDateOutside {
                     hidden = true
                 }
             }
@@ -148,7 +148,7 @@ public class YFDayView: YFCalendarBaseView {
             }
         }
         if isInside! {
-            calendarView.calendarViewDelegate?.didEndSelectingADay?(self)
+            calendarView.calendarViewDelegate?.calendarView?(calendarView, didSelectADay: self)
         }
     }
     
@@ -174,8 +174,7 @@ public class YFDayView: YFCalendarBaseView {
             }
         }
         if isInside! {
-//        if calendarView.selectedDates.contains(date!) {
-            calendarView.calendarViewDelegate?.didEndDeselectingADay?(self)
+            calendarView.calendarViewDelegate?.calendarView?(calendarView, didDeselectADay: self)
         }
     }
     //MARK: - Variables Open For User
@@ -193,17 +192,11 @@ public class YFDayView: YFCalendarBaseView {
     var dayIndex: Int!
     var isSelected: Bool? = false {
         didSet {
-            debugPrint(appearance.delegate?.disableADate?(self))
-            if let disable = appearance.delegate?.disableADate?(self) {
-                if disable {
+            if let isSelected = isSelected {
+                if isSelected {
+                    beSelected(calendarView.turnOnAnimationOnDay)
                 } else {
-                    if let isSelected = isSelected {
-                        if isSelected {
-                            beSelected(calendarView.turnOnAnimationOnDay)
-                        } else {
-                            beDeselected(calendarView.turnOnAnimationOnDay)
-                        }
-                    }
+                    beDeselected(calendarView.turnOnAnimationOnDay)
                 }
             }
         }
