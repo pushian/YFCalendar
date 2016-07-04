@@ -249,7 +249,7 @@ extension OpenViewController: YFCalendarViewDelegate {
     }
     
     func didEndSelectingADay(selectedDay: YFDayView) {
-        calendarView.deselectADate(selectedDay.date!)
+//        calendarView.deselectADate(selectedDay.date!)
     }
     
     func didEndDeselectingADay(selectedDay: YFDayView) {
@@ -310,6 +310,14 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     }
     func topLineThickness() -> CGFloat {
         return 0.5
+    }
+    
+    func colorOfADate(selectedDay: YFDayView) -> UIColor? {
+        return .blueColor()
+    }
+    
+    func disableADate(selectedDay: YFDayView) -> Bool {
+        return false
     }
 }
 

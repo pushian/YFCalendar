@@ -36,9 +36,13 @@ public protocol YFCalendarAppearanceDelegate: class {
     optional func dotMarkOffsetFromDateLabel() -> CGFloat
     optional func dotMarkSelectedColor() -> UIColor
     optional func distanceBetweenDots() -> CGFloat
-
-
+    
+    
     optional func topLineColor() -> UIColor
     optional func topLineThickness() -> CGFloat
     optional func showTopLine() -> Bool
+
+    // DayView Customization
+    optional func colorOfADate(selectedDay: YFDayView) -> UIColor?
+    optional func disableADate(selectedDay: YFDayView) -> Bool
 }

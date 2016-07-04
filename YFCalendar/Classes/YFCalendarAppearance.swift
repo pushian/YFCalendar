@@ -73,7 +73,6 @@ final public class YFCalendarAppearance: NSObject {
         topLineColor ~> delegate?.topLineColor?()
         topLineThickness ~> delegate?.topLineThickness?()
         showTopLine ~> delegate?.showTopLine?()
-
     }
 }
 

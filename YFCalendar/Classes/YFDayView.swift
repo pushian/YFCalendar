@@ -90,26 +90,32 @@ public class YFDayView: YFCalendarBaseView {
     
     private func updateDisplay() {
         dayLabel.font = appearance.fontOfDateLabel
+        var textColor: UIColor?
+        
         if date == NSDate().YFStandardFormatDate() {
-            dayLabel.textColor = appearance.colorOfDateToday
+            textColor = appearance.colorOfDateToday
         } else {
             if isInside! {
                 if !appearance.showDateOutsideOfTheCurrentMonth! {
                     if components?.weekday == 1 || components?.weekday == 7 {
-                        dayLabel.textColor = appearance.colorOfWeekend
+                        textColor = appearance.colorOfWeekend
                     } else {
-                        dayLabel.textColor = appearance.colorOfWeekday
+                        textColor = appearance.colorOfWeekday
                     }
                 } else {
-                    dayLabel.textColor = appearance.colorOfDateInsideMonth
+                    textColor = appearance.colorOfDateInsideMonth
                 }
             } else {
-                dayLabel.textColor = appearance.colorOfDateOutsideMonth
+                textColor = appearance.colorOfDateOutsideMonth
                 if !appearance.showDateOutsideOfTheCurrentMonth! {
                     hidden = true
                 }
             }
         }
+        if let color = appearance.delegate?.colorOfADate?(self) {
+            textColor = color
+        }
+        dayLabel.textColor = textColor
     }
     
     private func setConstrains() {
@@ -187,11 +193,17 @@ public class YFDayView: YFCalendarBaseView {
     var dayIndex: Int!
     var isSelected: Bool? = false {
         didSet {
-            if let isSelected = isSelected {
-                if isSelected {
-                    beSelected(calendarView.turnOnAnimationOnDay)
+            debugPrint(appearance.delegate?.disableADate?(self))
+            if let disable = appearance.delegate?.disableADate?(self) {
+                if disable {
                 } else {
-                    beDeselected(calendarView.turnOnAnimationOnDay)
+                    if let isSelected = isSelected {
+                        if isSelected {
+                            beSelected(calendarView.turnOnAnimationOnDay)
+                        } else {
+                            beDeselected(calendarView.turnOnAnimationOnDay)
+                        }
+                    }
                 }
             }
         }
@@ -266,6 +278,7 @@ public class YFDayView: YFCalendarBaseView {
 // MARK: - Animation
 extension YFDayView {
     private func selectWithBubbleEffect() {
+        self.layer.removeAllAnimations()
         selectionView?.alpha = 1
         selectionView?.transform = CGAffineTransformMakeScale(0.5, 0.5)
         dayLabel?.transform = CGAffineTransformMakeScale(0.5, 0.5)
