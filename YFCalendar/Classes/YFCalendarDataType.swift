@@ -4,12 +4,13 @@ import UIKit
 public enum ShapeType {
     case CircleWithFill
     case CircleWithOutFill
-    case UnselectedSingleDotMark
-    case SelectedSingleDotMark
-    case UnselectedDoubleDotMark
-    case SelectedDoubleDotMark
+//    case UnselectedSingleDotMark
+//    case SelectedSingleDotMark
+//    case UnselectedDoubleDotMark
+//    case SelectedDoubleDotMark
+    case UnselectedDotMarks
+    case SelectedDotMarks
     case TopLine
-    case None
 }
 
 @objc public enum DateType: Int {

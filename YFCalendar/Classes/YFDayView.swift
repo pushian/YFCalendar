@@ -17,51 +17,18 @@ public class YFDayView: YFCalendarBaseView {
     
     //MARK: - Functions Open For User
     //MARK: - Public Functions
-    func addADot(dotColor: UIColor) {
-        switch dotView.shape! {
-        case .None:
-            dotView.colors = [dotColor]
-            if isSelected! {
-                dotView.shape = .SelectedSingleDotMark
-            } else {
-                dotView.shape = .UnselectedSingleDotMark
-            }
-            dotView.setNeedsDisplay()
-        case .UnselectedSingleDotMark:
-            dotView.colors?.append(dotColor)
-            dotView.shape = .UnselectedDoubleDotMark
-            dotView.setNeedsDisplay()
-        case .SelectedSingleDotMark:
-            dotView.colors?.append(dotColor)
-            dotView.shape = .SelectedDoubleDotMark
-            dotView.setNeedsDisplay()
-        default: break
+    func addDots(dotColor: [UIColor]) {
+        if dotView.colors == nil {
+            dotView.colors = dotColor
+        } else {
+            dotView.colors?.appendContentsOf(dotColor)
         }
+        dotView.setNeedsDisplay()
     }
     
     func updateDotView(dotColorArrays: [UIColor]) {
-        if dotColorArrays.count == 2 {
-            if isSelected! {
-                dotView.shape = .SelectedDoubleDotMark
-                dotView.colors = dotColorArrays
-            } else {
-                dotView.shape = .UnselectedDoubleDotMark
-                dotView.colors = dotColorArrays
-            }
-            dotView.setNeedsDisplay()
-        } else if dotColorArrays.count == 1 {
-            if isSelected! {
-                dotView.shape = .SelectedSingleDotMark
-                dotView.colors = dotColorArrays
-            } else {
-                dotView.shape = .UnselectedSingleDotMark
-                dotView.colors = dotColorArrays
-            }
-            dotView.setNeedsDisplay()
-        } else {
-            dotView.shape = .None
-            dotView.setNeedsDisplay()
-        }
+        dotView.colors = dotColorArrays
+        dotView.setNeedsDisplay()
     }
     
     func belongsToDate(date: NSDate) -> Bool {
@@ -112,7 +79,7 @@ public class YFDayView: YFCalendarBaseView {
                 }
             }
         }
-        if let color = appearance.delegate?.colorOfADate?(self) {
+        if let color = appearance.delegate?.calendarView?(calendarView, customizeColorForTheDay: self) {
             textColor = color
         }
         dayLabel.textColor = textColor
@@ -129,15 +96,8 @@ public class YFDayView: YFCalendarBaseView {
     
     private func beSelected (animation: Bool) {
         dayLabel.textColor = UIColor.whiteColor()
-        switch dotView.shape! {
-        case .UnselectedSingleDotMark:
-            dotView.shape = .SelectedSingleDotMark
-            dotView.setNeedsDisplay()
-        case .UnselectedDoubleDotMark:
-            dotView.shape = .SelectedDoubleDotMark
-            dotView.setNeedsDisplay()
-        default: break
-        }
+        dotView.shape = .SelectedDotMarks
+        dotView.setNeedsDisplay()
         if animation {
             selectWithBubbleEffect()
         } else {
@@ -147,21 +107,11 @@ public class YFDayView: YFCalendarBaseView {
                 selectionView.setNeedsDisplay()
             }
         }
-        if isInside! {
-            calendarView.calendarViewDelegate?.calendarView?(calendarView, didSelectADay: self)
-        }
     }
     
     private func beDeselected (animation: Bool) {
-        switch dotView.shape! {
-        case .SelectedSingleDotMark:
-            dotView.shape = .UnselectedSingleDotMark
-            dotView.setNeedsDisplay()
-        case .SelectedDoubleDotMark:
-            dotView.shape = .UnselectedDoubleDotMark
-            dotView.setNeedsDisplay()
-        default: break
-        }
+        dotView.shape = .UnselectedDotMarks
+        dotView.setNeedsDisplay()
         if animation {
             deselectionWithBubbleEffect()
         } else {
@@ -172,9 +122,6 @@ public class YFDayView: YFCalendarBaseView {
             } else {
                 self.selectionView?.alpha = 0
             }
-        }
-        if isInside! {
-            calendarView.calendarViewDelegate?.calendarView?(calendarView, didDeselectADay: self)
         }
     }
     //MARK: - Variables Open For User
@@ -241,7 +188,9 @@ public class YFDayView: YFCalendarBaseView {
         let selectionViewFrame = CGRectMake(0, 0, frame.width, frame.height)
         selectionView = YFCustomizedShape(dayView: self, shape: .CircleWithFill, frame: selectionViewFrame)
         let dotFrame = CGRectMake(0, 0, frame.width, frame.height)
-        dotView = YFCustomizedShape(dayView: self, shape: .None, frame: dotFrame)
+        dotView = YFCustomizedShape(dayView: self, shape: .UnselectedDotMarks, frame: dotFrame)
+        dotView.colors = appearance.delegate?.calendarView?(calendarView, initializeDotsForTheDay: self)
+        dotView.setNeedsDisplay()
         lineView = YFCustomizedShape(dayView: self, shape: .TopLine, frame: dotFrame)
         if date == NSDate().YFStandardFormatDate() {
             selectionView.shape = .CircleWithOutFill

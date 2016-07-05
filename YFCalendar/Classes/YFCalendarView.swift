@@ -14,11 +14,11 @@ public class YFCalendarView: YFCalendarBaseView {
     public func selectToday() {
         selectADate(NSDate())
     }
-    //TODO: Auto check whether the dot number is more than 2
-    public func addADotToDate(date: NSDate, dotColor: UIColor) {
+    
+    public func addDotsToDate(date: NSDate, dotColorArrays: [UIColor]) {
         for index in 0..<3 {
             if let day = threeMonths[index].findTheOwnerWithDate(date) {
-                day.addADot(dotColor)
+                day.addDots(dotColorArrays)
             }
         }
         var dotedDate = DotedDate()
@@ -26,15 +26,15 @@ public class YFCalendarView: YFCalendarBaseView {
         
         for index in (0..<dotedDates.count) {
             if dotedDates[index].equalsTo(dotedDate) {
-                dotedDates[index].dotColors!.append(dotColor)
+                dotedDates[index].dotColors!.appendContentsOf(dotColorArrays)
                 return
             }
         }
-        dotedDate.dotColors = [dotColor]
+        dotedDate.dotColors = dotColorArrays
         dotedDates.append(dotedDate)
     }
     
-    public func updateDotToDate(date: NSDate, dotColorArrays: [UIColor]) {
+    public func updateDotsToDate(date: NSDate, dotColorArrays: [UIColor]) {
         for index in 0..<3 {
             if let day = threeMonths[index].findTheOwnerWithDate(date) {
                 day.updateDotView(dotColorArrays)
@@ -59,8 +59,9 @@ public class YFCalendarView: YFCalendarBaseView {
     }
     
     public func removeDotFromDate(date: NSDate) {
-        updateDotToDate(date, dotColorArrays: [UIColor]())
+        updateDotsToDate(date, dotColorArrays: [UIColor]())
     }
+    
     
     public func clearAllSelection() {
         for each in selectedDayViews {
@@ -70,13 +71,12 @@ public class YFCalendarView: YFCalendarBaseView {
         selectedDates.removeAll()
     }
     
-    // TODO: - Think again about how to write these three functions
     public func sendTapToADate(date: NSDate) {
         let unit = yearUnit.union(monthUnit)
         let components = calendar.components(unit, fromDate: date)
         if components == presentedMonthView?.components {
             let dayView = presentedMonthView?.findTheOwnerWithDate(date)
-            presentedMonthView?.tapActionOnADay(dayView!)
+            presentedMonthView?.tapActionOnADay(dayView!, completion: nil)
         } else {
             if selectedDates.contains(date.YFStandardFormatDate()) {
                 selectedDates.removeAtIndex(selectedDates.indexOf(date.YFStandardFormatDate())!)
@@ -94,7 +94,7 @@ public class YFCalendarView: YFCalendarBaseView {
         case .Single:
             if components == presentedMonthView?.components {
                 let dayView = presentedMonthView?.findTheOwnerWithDate(date)
-                presentedMonthView?.tapActionOnADay(dayView!)
+                presentedMonthView?.tapActionOnADay(dayView!, completion: nil)
             } else {
                 initialLoad(date, autoSelect: true)
             }
@@ -107,7 +107,7 @@ public class YFCalendarView: YFCalendarBaseView {
             } else {
                 if components == presentedMonthView?.components {
                     let dayView = presentedMonthView?.findTheOwnerWithDate(date)
-                    presentedMonthView?.tapActionOnADay(dayView!)
+                    presentedMonthView?.tapActionOnADay(dayView!, completion: nil)
                 } else {
                     initialLoad(date, autoSelect: true)
                 }
@@ -136,7 +136,7 @@ public class YFCalendarView: YFCalendarBaseView {
         }
     }
     
-    public func presentPreviousMonth(withTarget withTarget: Bool) {
+    public func presentPreviousMonth(withSelectedDate withSelectedDate: Bool = false) {
         if pageLoadingEnabled {
             pageLoadingEnabled = false
             let previous = threeMonths[0]
@@ -160,7 +160,7 @@ public class YFCalendarView: YFCalendarBaseView {
                 self.threeMonths[2] = self.threeMonths[1]
                 self.threeMonths[1] = self.threeMonths[0]
                 self.presentedMonthView = self.threeMonths[1]
-                if !withTarget && self.dateSelectionMode == .Single && self.autoSelectTheDayForMonthSwitchInTheSingleMode {
+                if !withSelectedDate && self.dateSelectionMode == .Single && self.autoSelectTheDayForMonthSwitchInTheSingleMode {
                     if self.presentedMonthView?.components?.year == NSDate().YFComponentsYear() && self.presentedMonthView?.components?.month == NSDate().YFComponentsMonth() {
                         self.selectADate(NSDate())
                     } else {
@@ -187,7 +187,7 @@ public class YFCalendarView: YFCalendarBaseView {
         }
     }
     
-    public func presentNextMonth(withTarget withTarget: Bool) {
+    public func presentNextMonth(withSelectedDate withSelectedDate: Bool = false) {
         if pageLoadingEnabled {
             pageLoadingEnabled = false
             let previous = threeMonths[0]
@@ -211,7 +211,7 @@ public class YFCalendarView: YFCalendarBaseView {
                 self.threeMonths[0] = self.threeMonths[1]
                 self.threeMonths[1] = self.threeMonths[2]
                 self.presentedMonthView = self.threeMonths[1]
-                if !withTarget && self.dateSelectionMode == .Single && self.autoSelectTheDayForMonthSwitchInTheSingleMode {
+                if !withSelectedDate && self.dateSelectionMode == .Single && self.autoSelectTheDayForMonthSwitchInTheSingleMode {
                     if self.presentedMonthView?.components?.year == NSDate().YFComponentsYear() && self.presentedMonthView?.components?.month == NSDate().YFComponentsMonth() {
                         self.selectADate(NSDate())
                     } else {
@@ -237,6 +237,10 @@ public class YFCalendarView: YFCalendarBaseView {
                 self.pageLoadingEnabled = true
             }
         }
+    }
+    
+    public func reloadCalenderView() {
+        initialLoad(aDateOfCurrentMonth!, autoSelect: false)
     }
     
     //MARK: - Public Functions
@@ -360,7 +364,6 @@ public class YFCalendarView: YFCalendarBaseView {
     }
     
     private func updateFrame(toHeight height: CGFloat, withAnimation: Bool) {
-//        if height != scrollView.frame.height {
         if height != frame.height {
             for each in superview!.constraints {
                 if let _ = each.firstItem as? YFCalendarView {
@@ -462,14 +465,14 @@ public class YFCalendarView: YFCalendarBaseView {
     weak public var calendarViewDelegate: YFCalendarViewDelegate? {
         didSet {
             if appearance  == nil {
-                appearance = YFCalendarAppearance()
+                appearance = YFCalendarAppearance(calendarView: self)
             }
         }
     }
     weak public var calendarAppearanceDelegate: YFCalendarAppearanceDelegate? {
         didSet {
             if appearance  == nil {
-                appearance = YFCalendarAppearance()
+                appearance = YFCalendarAppearance(calendarView: self)
             }
             appearance?.delegate = calendarAppearanceDelegate
             if calendarScrollDirection == .Horizontal {
@@ -559,11 +562,12 @@ public class YFCalendarView: YFCalendarBaseView {
     var appearance: YFCalendarAppearance? {
         didSet {
             if let appearance = appearance {
-                appearance.weekHeight = frame.height / CGFloat(numberOfWeeks)
+                appearance.weekHeight = floor(frame.height * 10.0 / CGFloat(numberOfWeeks)) / 10.0
                 appearance.dayWidth = frame.width / 7.0
             }
         }
     }
+    
     var threeMonths = [YFMonthView]()
     //MARK: - Private Variables
     private var scrollViewWidth: CGFloat = 0
@@ -653,7 +657,7 @@ public class YFCalendarView: YFCalendarBaseView {
         currentView.layoutIfNeeded()
         //TODO:
         if autoSelect {
-            presentedMonthView?.tapActionOnADay(currentDayView!)
+            presentedMonthView?.tapActionOnADay(currentDayView!, completion: nil)
         }
         updateFrame(toHeight: CGFloat(threeMonths[1].numberOfWeeks()) * appearance!.weekHeight, withAnimation: true)
         calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: presentedMonthView!)
@@ -712,14 +716,5 @@ extension YFCalendarView: UIScrollViewDelegate {
             
         }
     }
-
-//    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-//        let x = scrollView.contentOffset.x
-//        if x > frame.width {
-//            scrollToLeft()
-//        } else if x < frame.width {
-//            scrollToRight()
-//        }
-//    }
 }
 

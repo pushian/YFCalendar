@@ -28,24 +28,30 @@ public class YFMonthView: YFCalendarBaseView {
         let location = recognizer.locationInView(self.interActiveView)
         let owner: YFDayView? = findTheOwnerWithLocation(location)
         if let owner = owner where owner.hidden != true {
-            tapActionOnADay(owner)
+            tapActionOnADay(owner, completion: { 
+                if owner.isSelected! {
+                    self.calendarView.calendarViewDelegate?.calendarView?(self.calendarView, didSelectADay: owner)
+                } else {
+                    self.calendarView.calendarViewDelegate?.calendarView?(self.calendarView, didDeselectADay: owner)
+                }
+            })
         }
     }
     
-    func tapActionOnADay(var day: YFDayView) {
-        if let disable = appearance.delegate?.disableADate?(day) {
+    func tapActionOnADay(var day: YFDayView, completion: (() -> Void)?) {
+        if let disable = appearance.delegate?.calendarView?(calendarView, disableUserInteractionForTheDay: day) {
             if disable {
             } else {
                 var theSameDay: YFDayView?
                 if !day.isInside! {
                     if day.date?.timeIntervalSince1970 > aDayInTheMonth?.timeIntervalSince1970 {
                         if calendarView.autoScrollToTheNewMonth {
-                            calendarView.presentNextMonth(withTarget: true)
+                            calendarView.presentNextMonth(withSelectedDate: true)
                         }
                         theSameDay = calendarView.threeMonths[2].weekViews[0].findTheOwnerWithDate(day.date!)
                     } else {
                         if calendarView.autoScrollToTheNewMonth {
-                            calendarView.presentPreviousMonth(withTarget: true)
+                            calendarView.presentPreviousMonth(withSelectedDate: true)
                         }
                         theSameDay = calendarView.threeMonths[0].weekViews[calendarView.threeMonths[0].numberOfWeeks() - 1].findTheOwnerWithDate(day.date!)
                     }
@@ -130,7 +136,9 @@ public class YFMonthView: YFCalendarBaseView {
                 }
             }
         }
-        debugPrint(calendarView.selectedDates)
+        if let completion = completion {
+            completion()
+        }
     }
     
     func findTheOwnerWithDate(date: NSDate) -> YFDayView? {

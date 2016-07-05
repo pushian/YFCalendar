@@ -16,8 +16,6 @@ public class YFCustomizedShape: UIView {
     unowned let appearance: YFCalendarAppearance
     
     var shape: ShapeType?
-    var pathOne: UIBezierPath?
-    var pathTwo: UIBezierPath?
     var colors: [UIColor]?
     var strokeColor: UIColor?
     var fillColor: UIColor?
@@ -41,8 +39,8 @@ public class YFCustomizedShape: UIView {
         if let shape = shape {
             switch shape {
             case .CircleWithFill:
-                pathOne = circlePath(appearance.selectionCircleRadius!, xOffset: 0, yOffset: 0)
-                pathOne!.lineWidth = appearance.selectionCircleBorderWidth!
+                let pathOne = circlePath(appearance.selectionCircleRadius!, xOffset: 0, yOffset: 0)
+                pathOne.lineWidth = appearance.selectionCircleBorderWidth!
                 if dayView.date == NSDate().YFStandardFormatDate() {
                     strokeColor = appearance.selectionCircleBorderColorToday
                     fillColor = appearance.selectionCircleFillColorToday
@@ -57,12 +55,12 @@ public class YFCustomizedShape: UIView {
                 }
                 strokeColor!.setStroke()
                 fillColor!.setFill()
-                pathOne!.stroke()
-                pathOne!.fill()
+                pathOne.stroke()
+                pathOne.fill()
                 
             case .CircleWithOutFill:
-                pathOne = circlePath(appearance.selectionCircleRadius!, xOffset: 0, yOffset: 0)
-                pathOne!.lineWidth = appearance.selectionCircleBorderWidth!
+                let pathOne = circlePath(appearance.selectionCircleRadius!, xOffset: 0, yOffset: 0)
+                pathOne.lineWidth = appearance.selectionCircleBorderWidth!
                 if dayView.date == NSDate().YFStandardFormatDate() {
                     strokeColor = appearance.selectionCircleBorderColorToday
                     fillColor = UIColor.clearColor()
@@ -77,76 +75,67 @@ public class YFCustomizedShape: UIView {
                 }
                 strokeColor!.setStroke()
                 fillColor!.setFill()
-                pathOne!.stroke()
-                pathOne!.fill()
-                
-            case .UnselectedSingleDotMark:
-                pathOne = circlePath(appearance.dotMarkRadius!, xOffset: 0, yOffset: dayView.dayLabel.frame.height / 2 + appearance.dotMarkOffsetFromDateLabel!)
-                
-                strokeColor = colors![0]
-                fillColor = colors![0]
-                strokeColor!.setStroke()
-                fillColor!.setFill()
-                pathOne!.stroke()
-                pathOne!.fill()
-                
-            case .SelectedSingleDotMark:
-                pathOne = circlePath(appearance.dotMarkRadius!, xOffset: 0, yOffset: dayView.dayLabel.frame.height / 2 + appearance.dotMarkOffsetFromDateLabel!)
-                
-                strokeColor = appearance.dotMarkSelectedColor
-                fillColor = appearance.dotMarkSelectedColor
-                strokeColor!.setStroke()
-                fillColor!.setFill()
-                pathOne!.stroke()
-                pathOne!.fill()
-                
-            case .UnselectedDoubleDotMark:
-                pathOne = circlePath(appearance.dotMarkRadius!, xOffset: -(appearance.dotMarkRadius! + appearance.distanceBetweenDots! / 2), yOffset: dayView.dayLabel.frame.height / 2 + appearance.dotMarkOffsetFromDateLabel!)
-                pathTwo = circlePath(appearance.dotMarkRadius!, xOffset: (appearance.dotMarkRadius! + appearance.distanceBetweenDots! / 2), yOffset: dayView.dayLabel.frame.height / 2 + appearance.dotMarkOffsetFromDateLabel!)
-                
-                strokeColor = colors![0]
-                fillColor = colors![0]
-                strokeColor!.setStroke()
-                fillColor!.setFill()
-                pathOne!.stroke()
-                pathOne!.fill()
-                strokeColor = colors![1]
-                fillColor = colors![1]
-                strokeColor!.setStroke()
-                fillColor!.setFill()
-                pathTwo!.stroke()
-                pathTwo!.fill()
-                
-            case .SelectedDoubleDotMark:
-                pathOne = circlePath(appearance.dotMarkRadius!, xOffset: -(appearance.dotMarkRadius! + appearance.distanceBetweenDots! / 2), yOffset: dayView.dayLabel.frame.height / 2 + appearance.dotMarkOffsetFromDateLabel!)
-                pathTwo = circlePath(appearance.dotMarkRadius!, xOffset: (appearance.dotMarkRadius! + appearance.distanceBetweenDots! / 2), yOffset: dayView.dayLabel.frame.height / 2 + appearance.dotMarkOffsetFromDateLabel!)
-                
-                strokeColor = appearance.dotMarkSelectedColor
-                fillColor = appearance.dotMarkSelectedColor
-                strokeColor!.setStroke()
-                fillColor!.setFill()
-                pathOne!.stroke()
-                pathOne!.fill()
-                pathTwo!.stroke()
-                pathTwo!.fill()
-                
+                pathOne.stroke()
+                pathOne.fill()
+            case .UnselectedDotMarks:
+                if let colors = colors {
+                    if colors.count > 0 {
+                        var start = -CGFloat(colors.count - 1) * (appearance.distanceBetweenDots! / 2.0)
+                        var yOff = dayView.dayLabel.frame.height / 2.0 + appearance.dotMarkOffsetFromDateLabel!
+                        for each in colors {
+                            let path = circlePath(appearance.dotMarkRadius!, xOffset: start, yOffset: yOff)
+                            strokeColor = each
+                            fillColor = each
+                            strokeColor!.setStroke()
+                            fillColor!.setFill()
+                            path.stroke()
+                            path.fill()
+                            start += appearance.distanceBetweenDots!
+                        }
+                    }
+                }
+            case .SelectedDotMarks:
+                if let colors = colors {
+                    if colors.count > 0 {
+                        var start = -CGFloat(colors.count - 1) * (appearance.distanceBetweenDots! / 2.0)
+                        var yOff = dayView.dayLabel.frame.height / 2.0 + appearance.dotMarkOffsetFromDateLabel!
+                        for each in colors {
+                            let path = circlePath(appearance.dotMarkRadius!, xOffset: start, yOffset: yOff)
+                            start += appearance.distanceBetweenDots!
+                            if appearance.dotMarkSelectedColor != .clearColor() {
+                                strokeColor = appearance.dotMarkSelectedColor
+                                fillColor = appearance.dotMarkSelectedColor
+                                strokeColor!.setStroke()
+                                fillColor!.setFill()
+                            } else {
+                                strokeColor = each
+                                fillColor = each
+                                strokeColor!.setStroke()
+                                fillColor!.setFill()
+                            }
+                            path.stroke()
+                            path.fill()
+                        }
+                    }
+                }
             case .TopLine:
-                pathOne = UIBezierPath()
-                pathOne!.lineWidth = appearance.topLineThickness!
+                let pathOne = UIBezierPath()
+                pathOne.lineWidth = appearance.topLineThickness!
                 appearance.topLineColor!.setStroke()
-                pathOne!.moveToPoint(CGPoint(x: 0, y: 0))
-                pathOne!.addLineToPoint(CGPoint(x: bounds.width, y: 0))
-                pathOne!.closePath()
-                pathOne!.stroke()
-            case .None:
-                break
+                pathOne.moveToPoint(CGPoint(x: 0, y: 0))
+                pathOne.addLineToPoint(CGPoint(x: bounds.width, y: 0))
+                pathOne.closePath()
+                pathOne.stroke()
             }
         }
 
     }
     
     func circlePath(radius: CGFloat, xOffset: CGFloat, yOffset: CGFloat) -> UIBezierPath {
-        let arcCenter = CGPoint(x: frame.width / 2 + xOffset, y: frame.height / 2 + yOffset)
+        debugPrint(radius)
+        debugPrint(xOffset)
+        debugPrint("---------")
+        let arcCenter = CGPoint(x: frame.width / 2.0 + xOffset, y: frame.height / 2.0 + yOffset)
         let startAngle = CGFloat(0)
         let endAngle = CGFloat(M_PI * 2.0)
         let clockwise = true

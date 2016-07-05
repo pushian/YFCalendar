@@ -13,7 +13,7 @@ import YFCalendar
 class OpenViewController: UIViewController {
     
     var calendarView: YFCalendarView! = {
-        let t = YFCalendarView(frame: CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 230))
+        let t = YFCalendarView(frame: CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 300))
         t.backgroundColor = UIColor.orangeColor()
         return t
     }()
@@ -140,7 +140,7 @@ class OpenViewController: UIViewController {
         buttonSeven.addTarget(self, action: #selector(unDotADay), forControlEvents: .TouchUpInside)
         buttonEight.addTarget(self, action: #selector(selectToday), forControlEvents: .TouchUpInside)
         buttonNine.addTarget(self, action: #selector(doubleDotADay), forControlEvents: .TouchUpInside)
-        buttonTen.addTarget(self, action: #selector(addADotToADay), forControlEvents: .TouchUpInside)
+        buttonTen.addTarget(self, action: #selector(addDotsToADay), forControlEvents: .TouchUpInside)
 
     }
     
@@ -162,11 +162,11 @@ class OpenViewController: UIViewController {
     }
     
     func showPrevious() {
-        calendarView.presentPreviousMonth(withTarget: false)
+        calendarView.presentPreviousMonth()
     }
     
     func showNext() {
-        calendarView.presentNextMonth(withTarget: false)
+        calendarView.presentNextMonth()
     }
     
     func tapADay() {
@@ -198,7 +198,7 @@ class OpenViewController: UIViewController {
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
         if let date = format.dateFromString(dayStr!) {
-            calendarView.updateDotToDate(date, dotColorArrays: [UIColor.blueColor()])
+            calendarView.updateDotsToDate(date, dotColorArrays: [UIColor.blueColor()])
         }
     }
     func doubleDotADay() {
@@ -206,15 +206,15 @@ class OpenViewController: UIViewController {
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
         if let date = format.dateFromString(dayStr!) {
-            calendarView.updateDotToDate(date, dotColorArrays: [UIColor.blueColor(), UIColor.greenColor()])
+            calendarView.updateDotsToDate(date, dotColorArrays: [UIColor.blueColor(), UIColor.greenColor()])
         }
     }
-    func addADotToADay() {
+    func addDotsToADay() {
         var format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let dayStr = dayInputView.text
         if let date = format.dateFromString(dayStr!) {
-            calendarView.addADotToDate(date, dotColor: UIColor.blueColor())
+            calendarView.addDotsToDate(date, dotColorArrays: [UIColor.blueColor(), UIColor.greenColor()])
         }
     }
     func unDotADay() {
@@ -236,62 +236,34 @@ extension OpenViewController: YFCalendarViewDelegate {
     }
     
     func calendarViewShowDateOutsideOfTheCurrentMonth(calenderView: YFCalendarView) -> Bool {
-        return false
+        return true
     }
     
     func calendarViewSetDateSelectionMode(calenderView: YFCalendarView) -> SelectionMode {
         return .Multiple
     }
+    
+    func calendarView(calenderView: YFCalendarView, didSelectADay selectedDay: YFDayView) {
+        debugPrint(selectedDay.date)
+    }
 }
 
 extension OpenViewController: YFCalendarAppearanceDelegate {
-    func dotMarkRadius() -> CGFloat {
-        return 2
+    func calendarViewSetDotMarkRadius(calenderView: YFCalendarView) -> CGFloat {
+        return 1
     }
-    
-    func dotMarkOffsetFromDateLabel() -> CGFloat {
-        return 2
+    func calendarViewSetDistanceBetweenDots(calenderView: YFCalendarView) -> CGFloat {
+        return 6
     }
-    
-    func dotMarkUnselectedColor() -> UIColor {
-        return .orangeColor()
-    }
-    
-    func selectionCircleRadius() -> CGFloat {
-        return 17
-    }
-    
-    func autoSelectTheDayForMonthSwitchInTheSingleMode() -> Bool {
+//    func calendarViewSetDotMarkSelectedColor(calenderView: YFCalendarView) -> UIColor {
+//        return UIColor.clearColor()
+//    }
+    func calendarView(calenderView: YFCalendarView, disableUserInteractionForTheDay: YFDayView) -> Bool {
         return false
     }
     
-    func fontOfDateLabel() -> UIFont {
-        return UIFont.systemFontOfSize(20)
-    }
-    
-    func colorOfDateToday() -> UIColor {
-        return .blueColor()
-    }
-    
-    func selectionCircleBorderColorToday() -> UIColor {
-        return .blueColor()
-    }
-    
-    func selectionCircleFillColorToday() -> UIColor {
-        return .blueColor()
-    }
-    func showTopLine() -> Bool {
-        return false
-    }
-    
-    func topLineColor() -> UIColor {
-        return .redColor()
-    }
-    func topLineThickness() -> CGFloat {
-        return 0.5
-    }
-    func disableADate(selectedDay: YFDayView) -> Bool {
-        return true
+    func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay: YFDayView) -> [UIColor]? {
+        return [UIColor.blueColor(), UIColor.greenColor()]
     }
 }
 
