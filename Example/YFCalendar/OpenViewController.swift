@@ -129,8 +129,8 @@ class OpenViewController: UIViewController {
         lowerView.addSubview(buttonTen)
         
         setConstraints()
-        calendarView.calendarViewDelegate = self
         calendarView.calendarAppearanceDelegate = self
+        calendarView.calendarViewDelegate = self
         buttonOne.addTarget(self, action: #selector(showPrevious), forControlEvents: .TouchUpInside)
         buttonTwo.addTarget(self, action: #selector(showNext), forControlEvents: .TouchUpInside)
         buttonThree.addTarget(self, action: #selector(tapADay), forControlEvents: .TouchUpInside)
@@ -242,15 +242,15 @@ extension OpenViewController: YFCalendarViewDelegate {
     func calendarViewSetDateSelectionMode(calenderView: YFCalendarView) -> SelectionMode {
         return .Multiple
     }
-    
+    func calendarViewSetScrollDirection(calenderView: YFCalendarView) -> CalendarScrollDirection {
+        return .Vertical
+    }
     func calendarView(calenderView: YFCalendarView, didSelectADay selectedDay: YFDayView) {
     }
     
     func calendarView(calenderView: YFCalendarView, willPresentTheMonth currentMonth: YFMonthView) {
-        debugPrint(currentMonth.currentMonth)
     }
     func calendarView(calenderView: YFCalendarView, didPresentTheMonth currentMonth: YFMonthView) {
-        debugPrint(currentMonth.currentMonth)
     }
     
 }

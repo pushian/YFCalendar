@@ -462,11 +462,24 @@ public class YFCalendarView: YFCalendarBaseView {
         }
         return nil
     }
+    
     //MARK: - Variables Open For User
     weak public var calendarViewDelegate: YFCalendarViewDelegate? {
         didSet {
             if appearance  == nil {
                 appearance = YFCalendarAppearance(calendarView: self)
+            }
+            if calendarAppearanceDelegate != nil {
+                if calendarScrollDirection == .Horizontal {
+                    scrollView.contentSize = CGSize(width: scrollViewWidth * 3, height: scrollViewHeight)
+                } else {
+                    scrollView.contentSize = CGSize(width: scrollViewWidth, height: scrollViewHeight * 3)
+                }
+                if autoSelectToday {
+                    initialLoad(NSDate(),autoSelect: true)
+                } else {
+                    initialLoad(NSDate(),autoSelect: false)
+                }
             }
         }
     }
@@ -476,15 +489,17 @@ public class YFCalendarView: YFCalendarBaseView {
                 appearance = YFCalendarAppearance(calendarView: self)
             }
             appearance?.delegate = calendarAppearanceDelegate
-            if calendarScrollDirection == .Horizontal {
-                scrollView.contentSize = CGSize(width: scrollViewWidth * 3, height: scrollViewHeight)
-            } else {
-                scrollView.contentSize = CGSize(width: scrollViewWidth, height: scrollViewHeight * 3)
-            }
-            if autoSelectToday {
-                initialLoad(NSDate(),autoSelect: true)
-            } else {
-                initialLoad(NSDate(),autoSelect: false)
+            if calendarViewDelegate != nil {
+                if calendarScrollDirection == .Horizontal {
+                    scrollView.contentSize = CGSize(width: scrollViewWidth * 3, height: scrollViewHeight)
+                } else {
+                    scrollView.contentSize = CGSize(width: scrollViewWidth, height: scrollViewHeight * 3)
+                }
+                if autoSelectToday {
+                    initialLoad(NSDate(),autoSelect: true)
+                } else {
+                    initialLoad(NSDate(),autoSelect: false)
+                }
             }
         }
     }
@@ -617,6 +632,7 @@ public class YFCalendarView: YFCalendarBaseView {
         }
     }
     private var willPrensentFunctionHasBeenCalledFlag = false
+    
     // MARK: - LifeCycle
     override public init(frame: CGRect) {
         super.init(frame: frame)
