@@ -40,7 +40,7 @@ public protocol YFCalendarAppearanceDelegate: class {
     optional func calendarViewShowTopLine(calenderView: YFCalendarView) -> Bool
     
     //DayView Customization
-    optional func calendarView(calenderView: YFCalendarView, customizeColorForTheDay: YFDayView) -> UIColor?
-    optional func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay: YFDayView) -> [UIColor]?
-    optional func calendarView(calenderView: YFCalendarView, disableUserInteractionForTheDay: YFDayView) -> Bool
+    optional func calendarView(calenderView: YFCalendarView, customizeColorForTheDay theDay: YFDayView) -> UIColor?
+    optional func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay theDay: YFDayView) -> [UIColor]?
+    optional func calendarView(calenderView: YFCalendarView, disableUserInteractionForTheDay theDay: YFDayView) -> Bool
 }

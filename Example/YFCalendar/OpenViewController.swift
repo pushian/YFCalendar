@@ -262,8 +262,11 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
         return false
     }
     
-    func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay: YFDayView) -> [UIColor]? {
-        return [UIColor.blueColor(), UIColor.greenColor()]
+//    func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay: YFDayView) -> [UIColor]? {
+//        return [UIColor.blueColor(), UIColor.greenColor()]
+//    }
+    func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay theDay: YFDayView) -> [UIColor]? {
+        if
     }
 }
 
