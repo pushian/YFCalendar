@@ -56,46 +56,75 @@ public class YFDayView: YFCalendarBaseView {
     }
     
     private func updateDisplay() {
-        dayLabel.font = appearance.fontOfDateLabel
-        var textColor: UIColor?
-        
-        if date == NSDate().YFStandardFormatDate() {
-            textColor = appearance.colorOfDateToday
+        if let view = appearance.delegate?.calendarView?(calendarView, customizeContentViewForTheDay: self, dateState: isSelected! ? .Selected : .Noselected) {
+            if !isInside! && !calendarView.showDateOutside {
+                hidden = true
+            } else {
+                for each in contentView.subviews {
+                    each.removeFromSuperview()
+                }
+                view.frame = contentView.bounds
+                contentView.addSubview(view)
+                contentView.hidden = false
+                dayLabel.hidden = true
+            }
         } else {
-            if isInside! {
-                if !calendarView.showDateOutside {
-                    if components?.weekday == 1 || components?.weekday == 7 {
-                        textColor = appearance.colorOfWeekend
-                    } else {
-                        textColor = appearance.colorOfWeekday
-                    }
+            contentView.hidden = true
+            dayLabel.hidden = false
+            var textColor: UIColor?
+            var textFont: UIFont?
+            if date == NSDate().YFStandardFormatDate() {
+                if isSelected! {
+                    textColor = appearance.colorOfDateTodayWhenSelected
+                    textFont = appearance.fontOfDateTodayWhenSelected
                 } else {
-                    textColor = appearance.colorOfDateInsideMonth
+                    textColor = appearance.colorOfDateToday
+                    textFont = appearance.fontOfDateToday
                 }
             } else {
-                textColor = appearance.colorOfDateOutsideMonth
-                if !calendarView.showDateOutside {
-                    hidden = true
+                if isInside! {
+                    if isSelected! {
+                        textColor = appearance.colorOfDateInsideMonthWhenSelected
+                        textFont = appearance.fontOfDateInsideMonthWhenSelected
+                    } else {
+                        textColor = appearance.colorOfDateInsideMonth
+                        textFont = appearance.fontOfDateInsideMonth
+                    }
+                } else {
+                    if isSelected! {
+                        textColor = appearance.colorOfDateOutsideMonthWhenSelected
+                        textFont = appearance.fontOfDateOutsideMonthWhenSelected
+                    } else {
+                        textColor = appearance.colorOfDateOutsideMonth
+                        textFont = appearance.fontOfDateOutsideMonth
+                    }
+                    if !calendarView.showDateOutside {
+                        hidden = true
+                    }
                 }
             }
+            if let color = appearance.delegate?.calendarView?(calendarView, customizeColorForTheDay: self, dateState: isSelected! ? .Selected: .Noselected) {
+                textColor = color
+            }
+            if let font = appearance.delegate?.calendarView?(calendarView, customizeFontForTheDay: self, dateState: isSelected! ? .Selected: .Noselected) {
+                textFont = font
+            }
+            dayLabel.textColor = textColor
+            dayLabel.font = textFont
         }
-        if let color = appearance.delegate?.calendarView?(calendarView, customizeColorForTheDay: self) {
-            textColor = color
-        }
-        dayLabel.textColor = textColor
     }
     
-    private func setConstrains() {
-        let centerXConstraint = NSLayoutConstraint(item: dayLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
-        addConstraint(centerXConstraint)
-        
-        let centerYConstraint = NSLayoutConstraint(item: dayLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
-        addConstraint(centerYConstraint)
-    }
+//    private func setConstrains() {
+//        let centerXConstraint = NSLayoutConstraint(item: dayLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+//        addConstraint(centerXConstraint)
+//        
+//        let centerYConstraint = NSLayoutConstraint(item: dayLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
+//        addConstraint(centerYConstraint)
+//    }
     
     
     private func beSelected (animation: Bool) {
-        dayLabel.textColor = UIColor.whiteColor()
+        updateDisplay()
         dotView.shape = .SelectedDotMarks
         dotView.setNeedsDisplay()
         if animation {
@@ -115,17 +144,12 @@ public class YFDayView: YFCalendarBaseView {
         if animation {
             deselectionWithBubbleEffect()
         } else {
-            self.updateDisplay()
-            if self.date == NSDate().YFStandardFormatDate() {
-                selectionView.shape = .CircleWithOutFill
-                selectionView.setNeedsDisplay()
-            } else {
-                self.selectionView?.alpha = 0
-            }
+            updateDisplay()
+            self.selectionView?.alpha = 0
         }
     }
     //MARK: - Variables Open For User
-    public var date: NSDate? {
+    private(set) public var date: NSDate? {
         didSet {
             if let date = date {
                 let unit = yearUnit.union(monthUnit).union(dayUnit).union(weekUnit).union(weekdayUnit)
@@ -134,6 +158,12 @@ public class YFDayView: YFCalendarBaseView {
             }
         }
     }
+    public var dayName: DayName {
+        get {
+            return DayName(rawValue: dayIndex)!
+        }
+    }
+    
     //MARK: - Public Variables
     var components: NSDateComponents?
     var dayIndex: Int!
@@ -154,9 +184,14 @@ public class YFDayView: YFCalendarBaseView {
         let t = UILabel()
         t.backgroundColor = UIColor.clearColor()
         t.textAlignment = .Center
-        t.translatesAutoresizingMaskIntoConstraints = false
         return t
     }()
+    var contentView: UIView! = {
+        let t = UIView()
+        t.backgroundColor = UIColor.clearColor()
+        return t
+    }()
+    
     var dotView: YFCustomizedShape!
     var lineView: YFCustomizedShape!
     
@@ -165,10 +200,6 @@ public class YFDayView: YFCalendarBaseView {
         didSet {
             if let dayLabelText = dayLabelText {
                 dayLabel.text = dayLabelText
-                dayLabel.sizeToFit()
-                if appearance.selectionCircleRadius == 0 {
-                    appearance.selectionCircleRadius = (dayLabel.frame.height / 2) * 1.5
-                }
             }
         }
     }
@@ -185,6 +216,12 @@ public class YFDayView: YFCalendarBaseView {
         super.init(frame: frame)
         self.backgroundColor = .whiteColor()
         checkWhetherIsInside()
+        if appearance.selectionCircleRadius == nil {
+            appearance.selectionCircleRadius = (frame.height / 2) * 0.8
+        }
+        if appearance.dotMarkOffsetFromDateCenter == nil {
+            appearance.dotMarkOffsetFromDateCenter = (frame.height / 2) * 0.8 - appearance.dotMarkRadius! - 2
+        }
         let selectionViewFrame = CGRectMake(0, 0, frame.width, frame.height)
         selectionView = YFCustomizedShape(dayView: self, shape: .CircleWithFill, frame: selectionViewFrame)
         let dotFrame = CGRectMake(0, 0, frame.width, frame.height)
@@ -192,22 +229,20 @@ public class YFDayView: YFCalendarBaseView {
         dotView.colors = appearance.delegate?.calendarView?(calendarView, initializeDotsForTheDay: self)
         dotView.setNeedsDisplay()
         lineView = YFCustomizedShape(dayView: self, shape: .TopLine, frame: dotFrame)
-        if date == NSDate().YFStandardFormatDate() {
-            selectionView.shape = .CircleWithOutFill
-            selectionView.setNeedsDisplay()
-        } else {
-            selectionView.alpha = 0
-        }
+        selectionView.alpha = 0
         if appearance.showTopLine! {
             lineView.alpha = 1
         } else {
             lineView.alpha = 0
         }
         addSubview(selectionView!)
+
+        dayLabel.frame = bounds
+        addSubview(dayLabel)
+        contentView.frame = bounds
+        addSubview(contentView)
         addSubview(dotView)
         addSubview(lineView)
-        addSubview(dayLabel)
-        setConstrains()
         updateDisplay()
     }
     
@@ -235,7 +270,6 @@ extension YFDayView {
                                     self.selectionView?.transform = CGAffineTransformMakeScale(1, 1)
                                     self.dayLabel?.transform = CGAffineTransformMakeScale(1, 1)
             }, completion: nil)
-
     }
 
     private func deselectionWithBubbleEffect(){
@@ -249,13 +283,7 @@ extension YFDayView {
             UIView.animateWithDuration(0.2, delay: 0,
                                        options: UIViewAnimationOptions.CurveEaseInOut,
                                        animations: {
-                                        if self.date == NSDate().YFStandardFormatDate() {
-                                            self.selectionView.transform = CGAffineTransformMakeScale(1, 1)
-                                            self.selectionView.shape = .CircleWithOutFill
-                                            self.selectionView.setNeedsDisplay()
-                                        } else {
-                                            self.selectionView.transform = CGAffineTransformMakeScale(0.01, 0.01)
-                                        }
+                                        self.selectionView.transform = CGAffineTransformMakeScale(0.01, 0.01)
                                         self.dayLabel!.transform = CGAffineTransformMakeScale(1, 1)
 
             }) { _ in

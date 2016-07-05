@@ -11,10 +11,6 @@ import UIKit
 public class YFCalendarView: YFCalendarBaseView {
     
     //MARK: - Functions Open For User
-    public func selectToday() {
-        selectADate(NSDate())
-    }
-    
     public func addDotsToDate(date: NSDate, dotColorArrays: [UIColor]) {
         for index in 0..<3 {
             if let day = threeMonths[index].findTheOwnerWithDate(date) {
@@ -87,6 +83,10 @@ public class YFCalendarView: YFCalendarBaseView {
         }
     }
     
+    public func selectToday() {
+        selectADate(NSDate())
+    }
+    
     public func selectADate(date: NSDate) {
         let unit = yearUnit.union(monthUnit)
         let components = calendar.components(unit, fromDate: date)
@@ -144,6 +144,7 @@ public class YFCalendarView: YFCalendarBaseView {
             let next = threeMonths[2]
             
             updateFrame(toHeight: CGFloat(threeMonths[0].numberOfWeeks()) * appearance!.weekHeight, withAnimation: true)
+            self.calendarViewDelegate?.calendarView?(self, willPresentTheMonth: self.threeMonths[0])
             UIView.animateWithDuration(0.5, delay: 0,
                                        options: UIViewAnimationOptions.CurveEaseInOut,
                                        animations: {
@@ -181,7 +182,7 @@ public class YFCalendarView: YFCalendarBaseView {
                 self.scrollView.addSubview(newMonth)
                 self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
                 self.dotDotedDayViews(inMonthView: newMonth)
-                self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
+                self.calendarViewDelegate?.calendarView?(self, didPresentTheMonth: self.presentedMonthView!)
                 self.pageLoadingEnabled = true
             }
         }
@@ -195,6 +196,7 @@ public class YFCalendarView: YFCalendarBaseView {
             let next = threeMonths[2]
 
             updateFrame(toHeight: CGFloat(threeMonths[2].numberOfWeeks()) * appearance!.weekHeight, withAnimation: true)
+            self.calendarViewDelegate?.calendarView?(self, willPresentTheMonth: self.threeMonths[2])
             UIView.animateWithDuration(0.5, delay: 0,
                                        options: UIViewAnimationOptions.CurveEaseInOut,
                                        animations: {
@@ -233,7 +235,7 @@ public class YFCalendarView: YFCalendarBaseView {
                 self.scrollView.addSubview(newMonth)
                 self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
                 self.dotDotedDayViews(inMonthView: newMonth)
-                self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
+                self.calendarViewDelegate?.calendarView?(self, didPresentTheMonth: self.presentedMonthView!)
                 self.pageLoadingEnabled = true
             }
         }
@@ -283,7 +285,6 @@ public class YFCalendarView: YFCalendarBaseView {
             let previous = threeMonths[0]
             let current = threeMonths[1]
             let next = threeMonths[2]
-            
             replaceMonthView(current, with: next)
             replaceMonthView(previous, with: current)
             previous.removeFromSuperview()
@@ -313,7 +314,8 @@ public class YFCalendarView: YFCalendarBaseView {
             scrollView.addSubview(newMonth)
             self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
             self.dotDotedDayViews(inMonthView: newMonth)
-            self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
+            self.calendarViewDelegate?.calendarView?(self, didPresentTheMonth: self.presentedMonthView!)
+            willPrensentFunctionHasBeenCalledFlag = false
             pageLoadingEnabled = true
         }
     }
@@ -324,7 +326,6 @@ public class YFCalendarView: YFCalendarBaseView {
             let previous = threeMonths[0]
             let current = threeMonths[1]
             let next = threeMonths[2]
-            
             replaceMonthView(current, with: previous)
             replaceMonthView(next, with: current)
             next.removeFromSuperview()
@@ -353,7 +354,8 @@ public class YFCalendarView: YFCalendarBaseView {
             scrollView.addSubview(newMonth)
             self.selectPreviouslySelectedDayViews(inMonthView: newMonth)
             self.dotDotedDayViews(inMonthView: newMonth)
-            self.calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: self.presentedMonthView!)
+            self.calendarViewDelegate?.calendarView?(self, didPresentTheMonth: self.presentedMonthView!)
+            willPrensentFunctionHasBeenCalledFlag = false
             pageLoadingEnabled = true
         }
     }
@@ -461,7 +463,6 @@ public class YFCalendarView: YFCalendarBaseView {
         return nil
     }
     //MARK: - Variables Open For User
-    
     weak public var calendarViewDelegate: YFCalendarViewDelegate? {
         didSet {
             if appearance  == nil {
@@ -489,10 +490,9 @@ public class YFCalendarView: YFCalendarBaseView {
     }
     
     public var selectedDayViews = [YFDayView]()
-    public var selectedDates = [NSDate]()
-    
-    public var dotedDates = [DotedDate]()
     public var presentedMonthView: YFMonthView?
+    public var selectedDates = [NSDate]()
+    public var dotedDates = [DotedDate]()
     
     //MARK: - Delegate Related Variables
     var calendarScrollDirection: CalendarScrollDirection {
@@ -567,7 +567,6 @@ public class YFCalendarView: YFCalendarBaseView {
             }
         }
     }
-    
     var threeMonths = [YFMonthView]()
     //MARK: - Private Variables
     private var scrollViewWidth: CGFloat = 0
@@ -617,7 +616,7 @@ public class YFCalendarView: YFCalendarBaseView {
             }
         }
     }
-
+    private var willPrensentFunctionHasBeenCalledFlag = false
     // MARK: - LifeCycle
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -660,7 +659,7 @@ public class YFCalendarView: YFCalendarBaseView {
             presentedMonthView?.tapActionOnADay(currentDayView!, completion: nil)
         }
         updateFrame(toHeight: CGFloat(threeMonths[1].numberOfWeeks()) * appearance!.weekHeight, withAnimation: true)
-        calendarViewDelegate?.calendarView?(self, didPrensentTheMonth: presentedMonthView!)
+        calendarViewDelegate?.calendarView?(self, didPresentTheMonth: presentedMonthView!)
     }
     
 }
@@ -677,10 +676,18 @@ extension YFCalendarView: UIScrollViewDelegate {
             }
             let x = scrollView.contentOffset.x
             if x > scrollViewWidth {
+                if !willPrensentFunctionHasBeenCalledFlag {
+                    self.calendarViewDelegate?.calendarView?(self, willPresentTheMonth: self.threeMonths[2])
+                    willPrensentFunctionHasBeenCalledFlag = true
+                }
                 if nextHeight != currentHeight {
                     updateFrame(toHeight: currentHeight + (nextHeight - currentHeight) * (x - scrollViewWidth) / scrollViewWidth, withAnimation: false)
                 }
             } else if x < frame.width {
+                if !willPrensentFunctionHasBeenCalledFlag {
+                    self.calendarViewDelegate?.calendarView?(self, willPresentTheMonth: self.threeMonths[0])
+                    willPrensentFunctionHasBeenCalledFlag = true
+                }
                 if previousHeight != currentHeight {
                     updateFrame(toHeight: currentHeight + (previousHeight - currentHeight) * (scrollViewWidth - x) / scrollViewWidth, withAnimation: false)
                 }
@@ -698,10 +705,18 @@ extension YFCalendarView: UIScrollViewDelegate {
             }
             let y = scrollView.contentOffset.y
             if y > scrollViewHeight {
+                if !willPrensentFunctionHasBeenCalledFlag {
+                    self.calendarViewDelegate?.calendarView?(self, willPresentTheMonth: self.threeMonths[2])
+                    willPrensentFunctionHasBeenCalledFlag = true
+                }
                 if nextHeight != currentHeight {
                     updateFrame(toHeight: currentHeight + (nextHeight - currentHeight) * (y - scrollViewHeight) / scrollViewHeight, withAnimation: false)
                 }
             } else if y < scrollViewHeight {
+                if !willPrensentFunctionHasBeenCalledFlag {
+                    self.calendarViewDelegate?.calendarView?(self, willPresentTheMonth: self.threeMonths[0])
+                    willPrensentFunctionHasBeenCalledFlag = true
+                }
                 if previousHeight != currentHeight {
                     updateFrame(toHeight: currentHeight + (previousHeight - currentHeight) * (scrollViewHeight - y) / scrollViewHeight, withAnimation: false)
                 }
@@ -712,9 +727,10 @@ extension YFCalendarView: UIScrollViewDelegate {
             } else if y == 0 {
                 scrollToPrevious()
             }
-            
-            
         }
+    }
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        willPrensentFunctionHasBeenCalledFlag = false
     }
 }
 

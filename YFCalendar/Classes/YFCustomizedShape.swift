@@ -42,35 +42,39 @@ public class YFCustomizedShape: UIView {
                 let pathOne = circlePath(appearance.selectionCircleRadius!, xOffset: 0, yOffset: 0)
                 pathOne.lineWidth = appearance.selectionCircleBorderWidth!
                 if dayView.date == NSDate().YFStandardFormatDate() {
-                    strokeColor = appearance.selectionCircleBorderColorToday
-                    fillColor = appearance.selectionCircleFillColorToday
-                } else {
-                    if dayView.isInside! {
-                        strokeColor = appearance.selectionCircleBorderColorInsideMonth
-                        fillColor = appearance.selectionCircleFillColorInsideMonth
+                    if let color = appearance.delegate?.calendarView?(calendarView, customizeSelectionCircleBorderColorForTheDay: dayView) {
+                        strokeColor = color
                     } else {
-                        strokeColor = appearance.selectionCircleBorderColorOutsideMonth
-                        fillColor = appearance.selectionCircleFillColorOutsideMonth
+                        strokeColor = appearance.selectionCircleBorderColorToday
                     }
-                }
-                strokeColor!.setStroke()
-                fillColor!.setFill()
-                pathOne.stroke()
-                pathOne.fill()
-                
-            case .CircleWithOutFill:
-                let pathOne = circlePath(appearance.selectionCircleRadius!, xOffset: 0, yOffset: 0)
-                pathOne.lineWidth = appearance.selectionCircleBorderWidth!
-                if dayView.date == NSDate().YFStandardFormatDate() {
-                    strokeColor = appearance.selectionCircleBorderColorToday
-                    fillColor = UIColor.clearColor()
+                    if let color = appearance.delegate?.calendarView?(calendarView, customizeSelectionCircleFillColorForTheDay: dayView) {
+                        fillColor = color
+                    } else {
+                        fillColor = appearance.selectionCircleFillColorToday
+                    }
                 } else {
                     if dayView.isInside! {
-                        strokeColor = appearance.selectionCircleBorderColorInsideMonth
-                        fillColor = UIColor.clearColor()
+                        if let color = appearance.delegate?.calendarView?(calendarView, customizeSelectionCircleBorderColorForTheDay: dayView) {
+                            strokeColor = color
+                        } else {
+                            strokeColor = appearance.selectionCircleBorderColorInsideMonth
+                        }
+                        if let color = appearance.delegate?.calendarView?(calendarView, customizeSelectionCircleFillColorForTheDay: dayView) {
+                            fillColor = color
+                        } else {
+                            fillColor = appearance.selectionCircleFillColorInsideMonth
+                        }
                     } else {
-                        strokeColor = appearance.selectionCircleBorderColorOutsideMonth
-                        fillColor = UIColor.clearColor()
+                        if let color = appearance.delegate?.calendarView?(calendarView, customizeSelectionCircleBorderColorForTheDay: dayView) {
+                            strokeColor = color
+                        } else {
+                            strokeColor = appearance.selectionCircleBorderColorOutsideMonth
+                        }
+                        if let color = appearance.delegate?.calendarView?(calendarView, customizeSelectionCircleFillColorForTheDay: dayView) {
+                            fillColor = color
+                        } else {
+                            fillColor = appearance.selectionCircleFillColorOutsideMonth
+                        }
                     }
                 }
                 strokeColor!.setStroke()
@@ -81,7 +85,7 @@ public class YFCustomizedShape: UIView {
                 if let colors = colors {
                     if colors.count > 0 {
                         var start = -CGFloat(colors.count - 1) * (appearance.distanceBetweenDots! / 2.0)
-                        var yOff = dayView.dayLabel.frame.height / 2.0 + appearance.dotMarkOffsetFromDateLabel!
+                        var yOff = appearance.dotMarkOffsetFromDateCenter!
                         for each in colors {
                             let path = circlePath(appearance.dotMarkRadius!, xOffset: start, yOffset: yOff)
                             strokeColor = each
@@ -98,7 +102,7 @@ public class YFCustomizedShape: UIView {
                 if let colors = colors {
                     if colors.count > 0 {
                         var start = -CGFloat(colors.count - 1) * (appearance.distanceBetweenDots! / 2.0)
-                        var yOff = dayView.dayLabel.frame.height / 2.0 + appearance.dotMarkOffsetFromDateLabel!
+                        var yOff = appearance.dotMarkOffsetFromDateCenter!
                         for each in colors {
                             let path = circlePath(appearance.dotMarkRadius!, xOffset: start, yOffset: yOff)
                             start += appearance.distanceBetweenDots!
@@ -132,9 +136,6 @@ public class YFCustomizedShape: UIView {
     }
     
     func circlePath(radius: CGFloat, xOffset: CGFloat, yOffset: CGFloat) -> UIBezierPath {
-        debugPrint(radius)
-        debugPrint(xOffset)
-        debugPrint("---------")
         let arcCenter = CGPoint(x: frame.width / 2.0 + xOffset, y: frame.height / 2.0 + yOffset)
         let startAngle = CGFloat(0)
         let endAngle = CGFloat(M_PI * 2.0)

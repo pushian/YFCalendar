@@ -72,7 +72,7 @@ class OpenViewController: UIViewController {
     
     var buttonNine: UIButton! = {
         let t = UIButton(frame: CGRectMake(120, 250, 100, 30))
-        t.setTitle("Double Dot", forState: .Normal)
+        t.setTitle("Double Dots", forState: .Normal)
         t.backgroundColor = .blackColor()
         t.setTitleColor(.whiteColor(), forState: .Normal)
         return t
@@ -80,7 +80,7 @@ class OpenViewController: UIViewController {
     
     var buttonTen: UIButton! = {
         let t = UIButton(frame: CGRectMake(120, 290, 100, 30))
-        t.setTitle("Add Dot", forState: .Normal)
+        t.setTitle("Add Dots", forState: .Normal)
         t.backgroundColor = .blackColor()
         t.setTitleColor(.whiteColor(), forState: .Normal)
         return t
@@ -88,7 +88,7 @@ class OpenViewController: UIViewController {
     
     var buttonSeven: UIButton! = {
         let t = UIButton(frame: CGRectMake(10, 290, 100, 30))
-        t.setTitle("Undot", forState: .Normal)
+        t.setTitle("Clear Dots", forState: .Normal)
         t.backgroundColor = .blackColor()
         t.setTitleColor(.whiteColor(), forState: .Normal)
         return t
@@ -141,7 +141,7 @@ class OpenViewController: UIViewController {
         buttonEight.addTarget(self, action: #selector(selectToday), forControlEvents: .TouchUpInside)
         buttonNine.addTarget(self, action: #selector(doubleDotADay), forControlEvents: .TouchUpInside)
         buttonTen.addTarget(self, action: #selector(addDotsToADay), forControlEvents: .TouchUpInside)
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -236,7 +236,7 @@ extension OpenViewController: YFCalendarViewDelegate {
     }
     
     func calendarViewShowDateOutsideOfTheCurrentMonth(calenderView: YFCalendarView) -> Bool {
-        return true
+        return false
     }
     
     func calendarViewSetDateSelectionMode(calenderView: YFCalendarView) -> SelectionMode {
@@ -244,8 +244,15 @@ extension OpenViewController: YFCalendarViewDelegate {
     }
     
     func calendarView(calenderView: YFCalendarView, didSelectADay selectedDay: YFDayView) {
-        debugPrint(selectedDay.date)
     }
+    
+    func calendarView(calenderView: YFCalendarView, willPresentTheMonth currentMonth: YFMonthView) {
+        debugPrint(currentMonth.currentMonth)
+    }
+    func calendarView(calenderView: YFCalendarView, didPresentTheMonth currentMonth: YFMonthView) {
+        debugPrint(currentMonth.currentMonth)
+    }
+    
 }
 
 extension OpenViewController: YFCalendarAppearanceDelegate {
@@ -255,18 +262,69 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
     func calendarViewSetDistanceBetweenDots(calenderView: YFCalendarView) -> CGFloat {
         return 6
     }
-//    func calendarViewSetDotMarkSelectedColor(calenderView: YFCalendarView) -> UIColor {
-//        return UIColor.clearColor()
-//    }
+    
     func calendarView(calenderView: YFCalendarView, disableUserInteractionForTheDay: YFDayView) -> Bool {
         return false
     }
-    
-//    func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay: YFDayView) -> [UIColor]? {
-//        return [UIColor.blueColor(), UIColor.greenColor()]
-//    }
     func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay theDay: YFDayView) -> [UIColor]? {
-        if
+        
+        return nil
+    }
+    func calendarView(calenderView: YFCalendarView, customizeColorForTheDay theDay: YFDayView, dateState: DateState) -> UIColor? {
+        if theDay.dayName == .Saturday || theDay.dayName == .Sunday {
+            if dateState == .Noselected {
+                return UIColor.lightGrayColor()
+            } else {
+                return UIColor.whiteColor()
+            }
+        }
+        return nil
+    }
+    func calendarView(calenderView: YFCalendarView, customizeSelectionCircleBorderColorForTheDay theDay: YFDayView) -> UIColor? {
+        if theDay.dayName == .Saturday || theDay.dayName == .Sunday {
+            return UIColor.lightGrayColor()
+        }
+        return nil
+    }
+    func calendarView(calenderView: YFCalendarView, customizeSelectionCircleFillColorForTheDay theDay: YFDayView) -> UIColor? {
+        if theDay.dayName == .Saturday || theDay.dayName == .Sunday {
+            return UIColor.lightGrayColor()
+        }
+        return nil
+    }
+    func calendarView(calenderView: YFCalendarView, customizeContentViewForTheDay theDay: YFDayView, dateState: DateState) -> UIView? {
+        let unit = NSCalendarUnit.Day.union(NSCalendarUnit.Month)
+        let component = NSCalendar.currentCalendar().components(unit, fromDate: theDay.date!)
+        if component.day == 1 {
+            let view = UIView()
+            view.backgroundColor = .clearColor()
+            let labelOne = UILabel()
+            let labelTwo = UILabel(frame: theDay.bounds)
+            let monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            labelOne.text = monthArray[component.month - 1]
+            labelOne.sizeToFit()
+            labelOne.frame = CGRectMake(0, 0, theDay.bounds.width, labelOne.frame.height)
+            labelOne.font = UIFont.systemFontOfSize(8)
+            labelTwo.font = UIFont.systemFontOfSize(15)
+            labelTwo.text = String(component.day)
+            labelOne.textAlignment = .Center
+            labelTwo.textAlignment = .Center
+            view.addSubview(labelOne)
+            view.addSubview(labelTwo)
+            if dateState == .Noselected {
+                labelOne.textColor = .orangeColor()
+                labelTwo.textColor = .blackColor()
+            } else {
+                labelOne.textColor = .whiteColor()
+                labelTwo.textColor = .whiteColor()
+            }
+            return view
+        }
+        return nil
+    }
+    
+    func calendarViewSetFontForDateContent(calenderView: YFCalendarView, dateType: DateType, dateState: DateState) -> UIFont? {
+        return UIFont.systemFontOfSize(15)
     }
 }
 

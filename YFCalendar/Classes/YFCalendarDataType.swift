@@ -3,11 +3,6 @@ import UIKit
 
 public enum ShapeType {
     case CircleWithFill
-    case CircleWithOutFill
-//    case UnselectedSingleDotMark
-//    case SelectedSingleDotMark
-//    case UnselectedDoubleDotMark
-//    case SelectedDoubleDotMark
     case UnselectedDotMarks
     case SelectedDotMarks
     case TopLine
@@ -17,6 +12,11 @@ public enum ShapeType {
     case InsideCurrentMonth = 1
     case OutsideCurrentMonth = 2
     case Today = 3
+}
+
+@objc public enum DateState: Int {
+    case Selected = 0
+    case Noselected = 1
 }
 
 @objc public enum SelectionMode: Int {
@@ -36,4 +36,14 @@ public struct DotedDate {
     func equalsTo(object: DotedDate) -> Bool {
         return self.date == object.date
     }
+}
+
+public enum DayName: Int {
+    case Sunday = 1
+    case Monday = 2
+    case Tuesday = 3
+    case Wednesday = 4
+    case Thursday = 5
+    case Friday = 6
+    case Saturday = 7
 }

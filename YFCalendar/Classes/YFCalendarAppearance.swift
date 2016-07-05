@@ -14,28 +14,36 @@ final public class YFCalendarAppearance: NSObject {
     var weekHeight: CGFloat = 0
     var dayWidth: CGFloat = 0
 
-    var colorOfWeekday: UIColor? = .blackColor()
-    var colorOfWeekend: UIColor? = .lightGrayColor()
-
     var colorOfDateInsideMonth: UIColor? = .blackColor()
     var colorOfDateOutsideMonth: UIColor? = .lightGrayColor()
     var colorOfDateToday: UIColor? = .redColor()
-    var fontOfDateLabel: UIFont? = UIFont.systemFontOfSize(UIFont.systemFontSize())
+    var colorOfDateInsideMonthWhenSelected: UIColor? = .whiteColor()
+    var colorOfDateOutsideMonthWhenSelected: UIColor? = .whiteColor()
+    var colorOfDateTodayWhenSelected: UIColor? = .whiteColor()
+    
+    var fontOfDateInsideMonth: UIFont? = UIFont.systemFontOfSize(UIFont.systemFontSize())
+    var fontOfDateOutsideMonth: UIFont? = UIFont.systemFontOfSize(UIFont.systemFontSize())
+    var fontOfDateToday: UIFont? = UIFont.systemFontOfSize(UIFont.systemFontSize())
+    var fontOfDateInsideMonthWhenSelected: UIFont? = UIFont.systemFontOfSize(UIFont.systemFontSize())
+    var fontOfDateOutsideMonthWhenSelected: UIFont? = UIFont.systemFontOfSize(UIFont.systemFontSize())
+    var fontOfDateTodayWhenSelected: UIFont? = UIFont.systemFontOfSize(UIFont.systemFontSize())
 
-    var selectionCircleRadius: CGFloat? = 0
+    var selectionCircleRadius: CGFloat?
     var selectionCircleBorderWidth: CGFloat? = 1
     
     var selectionCircleBorderColorInsideMonth: UIColor? = .blackColor()
     var selectionCircleFillColorInsideMonth: UIColor? = .blackColor()
+    
     var selectionCircleBorderColorOutsideMonth: UIColor? = .lightGrayColor()
     var selectionCircleFillColorOutsideMonth: UIColor? = .lightGrayColor()
+    
     var selectionCircleBorderColorToday: UIColor? = .redColor()
     var selectionCircleFillColorToday: UIColor? = .redColor()
     
     var dotMarkRadius: CGFloat? = 1
     var dotMarkSelectedColor: UIColor? = .whiteColor()
-    var dotMarkOffsetFromDateLabel: CGFloat? = 1
-    var distanceBetweenDots: CGFloat? = 2
+    var dotMarkOffsetFromDateCenter: CGFloat?
+    var distanceBetweenDots: CGFloat? = 3
     
     var topLineColor: UIColor? = .lightGrayColor()
     var topLineThickness: CGFloat? = 1
@@ -55,12 +63,20 @@ final public class YFCalendarAppearance: NSObject {
     }
     
     func setupAppearance() {
-        colorOfWeekday ~> delegate?.calendarViewSetColorForWeekday?(calendarView)
-        colorOfWeekend ~> delegate?.calendarViewSetColorForWeekend?(calendarView)
-        colorOfDateInsideMonth ~> delegate?.calendarViewSetColorForDate?(calendarView, dateType: .InsideCurrentMonth)
-        colorOfDateOutsideMonth ~> delegate?.calendarViewSetColorForDate?(calendarView, dateType: .OutsideCurrentMonth)
-        colorOfDateToday ~> delegate?.calendarViewSetColorForDate?(calendarView, dateType: .Today)
-        fontOfDateLabel ~> delegate?.calendarViewSetFontForDateLabel?(calendarView)
+        colorOfDateInsideMonth ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Noselected)
+        colorOfDateOutsideMonth ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Noselected)
+        colorOfDateToday ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .Today, dateState: .Noselected)
+        colorOfDateInsideMonthWhenSelected ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Selected)
+        colorOfDateOutsideMonthWhenSelected ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Selected)
+        colorOfDateTodayWhenSelected ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .Today, dateState: .Selected)
+        
+        fontOfDateInsideMonth ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Noselected)
+        fontOfDateOutsideMonth ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Noselected)
+        fontOfDateToday ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .Today, dateState: .Noselected)
+        fontOfDateInsideMonthWhenSelected ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Selected)
+        fontOfDateOutsideMonthWhenSelected ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Selected)
+        fontOfDateTodayWhenSelected ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .Today, dateState: .Selected)
+        
         selectionCircleRadius ~> delegate?.calendarViewSetSelectionCircleRadius?(calendarView)
         selectionCircleBorderWidth ~> delegate?.calendarViewSetSelectionCircleBorderWidth?(calendarView)
         selectionCircleBorderColorInsideMonth ~> delegate?.calendarViewSetSelectionCircleBorderColor?(calendarView, dateType: .InsideCurrentMonth)
@@ -69,10 +85,11 @@ final public class YFCalendarAppearance: NSObject {
         selectionCircleFillColorInsideMonth ~> delegate?.calendarViewSetSelectionCircleFillColor?(calendarView, dateType: .InsideCurrentMonth)
         selectionCircleFillColorOutsideMonth ~> delegate?.calendarViewSetSelectionCircleFillColor?(calendarView, dateType: .OutsideCurrentMonth)
         selectionCircleFillColorToday ~> delegate?.calendarViewSetSelectionCircleFillColor?(calendarView, dateType: .Today)
+        
         dotMarkRadius ~> delegate?.calendarViewSetDotMarkRadius?(calendarView)
         dotMarkSelectedColor ~> delegate?.calendarViewSetDotMarkSelectedColor?(calendarView)
         distanceBetweenDots ~> delegate?.calendarViewSetDistanceBetweenDots?(calendarView)
-        dotMarkOffsetFromDateLabel ~> delegate?.calendarViewSetDotMarkOffsetFromDateLabel?(calendarView)
+        dotMarkOffsetFromDateCenter ~> delegate?.calendarViewSetDotMarkOffsetFromDateCenter?(calendarView)
         topLineColor ~> delegate?.calendarViewSetTopLineColor?(calendarView)
         topLineThickness ~> delegate?.calendarViewSetTopLineThickness?(calendarView)
         showTopLine ~> delegate?.calendarViewShowTopLine?(calendarView)

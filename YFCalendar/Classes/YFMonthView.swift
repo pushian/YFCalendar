@@ -15,11 +15,6 @@ public class YFMonthView: YFCalendarBaseView {
 
     //MARK: - Functions Open For User
     //MARK: - Public Functions
-//    func updateFrame() {
-//        frame.size.height = CGFloat(numberOfWeeks()) * appearance.weekHeight
-//        interActiveView.frame.size.height = frame.height
-//    }
-    
     func numberOfWeeks() -> Int {
         let range = calendar.rangeOfUnit(weekUnit, inUnit: monthUnit, forDate: aDayInTheMonth!)
         return range.length
@@ -252,7 +247,6 @@ public class YFMonthView: YFCalendarBaseView {
             return components?.year
         }
     }
-    
     public var currentMonth: Int? {
         get {
             return components?.month

@@ -13,7 +13,8 @@ import Foundation
 @objc
 public protocol YFCalendarViewDelegate: class {
     optional func calendarView(calenderView: YFCalendarView, autoSelectTheFirstDateOfTheNextMonthBasedOnSelectionMode: SelectionMode) -> Bool
-    optional func calendarView(calenderView: YFCalendarView, didPrensentTheMonth currentMonth: YFMonthView) -> Void
+    optional func calendarView(calenderView: YFCalendarView, willPresentTheMonth currentMonth: YFMonthView) -> Void
+    optional func calendarView(calenderView: YFCalendarView, didPresentTheMonth currentMonth: YFMonthView) -> Void
     optional func calendarView(calenderView: YFCalendarView, didSelectADay selectedDay: YFDayView) -> Void
     optional func calendarView(calenderView: YFCalendarView, didDeselectADay deselectedDay: YFDayView) -> Void
 
