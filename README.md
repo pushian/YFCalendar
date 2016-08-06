@@ -104,9 +104,7 @@ optional func calendarViewSetScrollDirection(calenderView: YFCalendarView) -> Ca
 ```swift
 optional func calendarViewTurnOnSelectionAnimation(calenderView: YFCalendarView) -> Bool
 ```
-- If it is set to true, when the user tap on the dates outside of this month, the view will be automatically scrolled to the corresponding month.
-```swift
-The default value is true.
+- If it is set to true, when the user tap on the dates outside of this month, the view will be automatically scrolled to the corresponding month. The default value is true.
 ```swift
 optional func calendarViewAutoScrollToTheNewMonthWhenTabTheDateOutsideOfTheCurrentMonth(calenderView: YFCalendarView) -> Bool
 ```
