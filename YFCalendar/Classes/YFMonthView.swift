@@ -33,7 +33,8 @@ public class YFMonthView: YFCalendarBaseView {
         }
     }
     
-    func tapActionOnADay(var day: YFDayView, completion: (() -> Void)?) {
+    func tapActionOnADay(theDay: YFDayView, completion: (() -> Void)?) {
+        let day = theDay
         if let disable = appearance.delegate?.calendarView?(calendarView, disableUserInteractionForTheDay: day) {
             if disable {
                 return
@@ -203,7 +204,7 @@ public class YFMonthView: YFCalendarBaseView {
     
     private func checkDays() {
         let unit = yearUnit.union(monthUnit).union(dayUnit).union(weekdayUnit)
-        var components = calendar.components(unit, fromDate: aDayInTheMonth!)
+        let components = calendar.components(unit, fromDate: aDayInTheMonth!)
         components.day = 1
         let startDay = calendar.dateFromComponents(components)
         components.month += 1
@@ -254,7 +255,7 @@ public class YFMonthView: YFCalendarBaseView {
     private func addToOutsideDataBase(date: NSDate, weekIndex: Int) {
         let unit = yearUnit.union(monthUnit).union(dayUnit).union(weekUnit).union(weekdayUnit)
         let components = calendar.components(unit, fromDate: date)
-        let theDate = components.day - 1
+//        let theDate = components.day - 1
         let theDay = components.weekday - 1
         let theWeek = weekIndex
         if let dateOnWeek = daysOutsideTheMonth[theWeek] {

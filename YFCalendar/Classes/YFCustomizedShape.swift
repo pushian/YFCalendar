@@ -92,7 +92,7 @@ public class YFCustomizedShape: UIView {
                 if let colors = colors {
                     if colors.count > 0 {
                         var start = -CGFloat(colors.count - 1) * (appearance.distanceBetweenDots! / 2.0)
-                        var yOff = appearance.dotMarkOffsetFromDateCenter!
+                        let yOff = appearance.dotMarkOffsetFromDateCenter!
                         for each in colors {
                             let path = circlePath(appearance.dotMarkRadius!, xOffset: start, yOffset: yOff)
                             strokeColor = each
@@ -109,7 +109,7 @@ public class YFCustomizedShape: UIView {
                 if let colors = colors {
                     if colors.count > 0 {
                         var start = -CGFloat(colors.count - 1) * (appearance.distanceBetweenDots! / 2.0)
-                        var yOff = appearance.dotMarkOffsetFromDateCenter!
+                        let yOff = appearance.dotMarkOffsetFromDateCenter!
                         for each in colors {
                             let path = circlePath(appearance.dotMarkRadius!, xOffset: start, yOffset: yOff)
                             start += appearance.distanceBetweenDots!

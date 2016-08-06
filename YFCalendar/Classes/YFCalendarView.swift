@@ -132,7 +132,7 @@ extension YFCalendarView {
      */
     public func deselectADate(date: NSDate) {
         let unit = yearUnit.union(monthUnit)
-        let components = calendar.components(unit, fromDate: date)
+//        let components = calendar.components(unit, fromDate: date)
         switch dateSelectionMode {
         case .Single:
             if selectedDates.contains(date.YFStandardFormatDate()) {
@@ -632,7 +632,7 @@ public class YFCalendarView: YFCalendarBaseView {
     private var firstDateOfPreviouMonth: NSDate? {
         get {
             let unit = yearUnit.union(monthUnit).union(dayUnit)
-            var components = calendar.components(unit, fromDate: aDateOfCurrentMonth!)
+            let components = calendar.components(unit, fromDate: aDateOfCurrentMonth!)
             components.day = 1
             components.month -= 1
             let newDate = calendar.dateFromComponents(components)
@@ -646,7 +646,7 @@ public class YFCalendarView: YFCalendarBaseView {
     private var firstDateOfNextMonth: NSDate? {
         get {
             let unit = yearUnit.union(monthUnit).union(dayUnit)
-            var components = calendar.components(unit, fromDate: aDateOfCurrentMonth!)
+            let components = calendar.components(unit, fromDate: aDateOfCurrentMonth!)
             components.day = 1
             components.month += 1
             let newDate = calendar.dateFromComponents(components)
