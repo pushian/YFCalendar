@@ -63,8 +63,21 @@ public class YFDayView: YFCalendarBaseView {
                 for each in contentView.subviews {
                     each.removeFromSuperview()
                 }
-                view.frame = contentView.bounds
                 contentView.addSubview(view)
+                contentView.removeConstraints(contentView.constraints)
+                view.translatesAutoresizingMaskIntoConstraints = false
+                contentView.addConstraint(NSLayoutConstraint(item: view, attribute: .Top,
+                    relatedBy: .Equal, toItem: contentView, attribute: .Top,
+                    multiplier: 1, constant: 0))
+                contentView.addConstraint(NSLayoutConstraint(item: view, attribute: .Bottom,
+                    relatedBy: .Equal, toItem: contentView, attribute: .Bottom,
+                    multiplier: 1, constant: 0))
+                contentView.addConstraint(NSLayoutConstraint(item: view, attribute: .Leading,
+                    relatedBy: .Equal, toItem: contentView, attribute: .Leading,
+                    multiplier: 1, constant: 0))
+                contentView.addConstraint(NSLayoutConstraint(item: view, attribute: .Trailing,
+                    relatedBy: .Equal, toItem: contentView, attribute: .Trailing,
+                    multiplier: 1, constant: 0))
                 contentView.hidden = false
                 dayLabel.hidden = true
             }
@@ -74,12 +87,25 @@ public class YFDayView: YFCalendarBaseView {
             var textColor: UIColor?
             var textFont: UIFont?
             if date == NSDate().YFStandardFormatDate() {
-                if isSelected! {
-                    textColor = appearance.colorOfDateTodayWhenSelected
-                    textFont = appearance.fontOfDateTodayWhenSelected
+                if isInside! {
+                    if isSelected! {
+                        textColor = appearance.colorOfDateTodayWhenSelected
+                        textFont = appearance.fontOfDateTodayWhenSelected
+                    } else {
+                        textColor = appearance.colorOfDateToday
+                        textFont = appearance.fontOfDateToday
+                    }
                 } else {
-                    textColor = appearance.colorOfDateToday
-                    textFont = appearance.fontOfDateToday
+                    if isSelected! {
+                        textColor = appearance.colorOfDateOutsideMonthWhenSelected
+                        textFont = appearance.fontOfDateOutsideMonthWhenSelected
+                    } else {
+                        textColor = appearance.colorOfDateOutsideMonth
+                        textFont = appearance.fontOfDateOutsideMonth
+                    }
+                    if !calendarView.showDateOutside {
+                        hidden = true
+                    }
                 }
             } else {
                 if isInside! {
@@ -114,15 +140,6 @@ public class YFDayView: YFCalendarBaseView {
         }
     }
     
-//    private func setConstrains() {
-//        let centerXConstraint = NSLayoutConstraint(item: dayLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
-//        addConstraint(centerXConstraint)
-//        
-//        let centerYConstraint = NSLayoutConstraint(item: dayLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
-//        addConstraint(centerYConstraint)
-//    }
-    
-    
     private func beSelected (animation: Bool) {
         updateDisplay()
         dotView.shape = .SelectedDotMarks
@@ -148,6 +165,76 @@ public class YFDayView: YFCalendarBaseView {
             self.selectionView?.alpha = 0
         }
     }
+    
+    private func setConstraints() {
+        dayLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraint(NSLayoutConstraint(item: dayLabel, attribute: .Top,
+            relatedBy: .Equal, toItem: self, attribute: .Top,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: dayLabel, attribute: .Bottom,
+            relatedBy: .Equal, toItem: self, attribute: .Bottom,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: dayLabel, attribute: .Leading,
+            relatedBy: .Equal, toItem: self, attribute: .Leading,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: dayLabel, attribute: .Trailing,
+            relatedBy: .Equal, toItem: self, attribute: .Trailing,
+            multiplier: 1, constant: 0))
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraint(NSLayoutConstraint(item: contentView, attribute: .Top,
+            relatedBy: .Equal, toItem: self, attribute: .Top,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: contentView, attribute: .Bottom,
+            relatedBy: .Equal, toItem: self, attribute: .Bottom,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: contentView, attribute: .Leading,
+            relatedBy: .Equal, toItem: self, attribute: .Leading,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: contentView, attribute: .Trailing,
+            relatedBy: .Equal, toItem: self, attribute: .Trailing,
+            multiplier: 1, constant: 0))
+        selectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraint(NSLayoutConstraint(item: selectionView, attribute: .Top,
+            relatedBy: .Equal, toItem: self, attribute: .Top,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: selectionView, attribute: .Bottom,
+            relatedBy: .Equal, toItem: self, attribute: .Bottom,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: selectionView, attribute: .Leading,
+            relatedBy: .Equal, toItem: self, attribute: .Leading,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: selectionView, attribute: .Trailing,
+            relatedBy: .Equal, toItem: self, attribute: .Trailing,
+            multiplier: 1, constant: 0))
+        dotView.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraint(NSLayoutConstraint(item: dotView, attribute: .Top,
+            relatedBy: .Equal, toItem: self, attribute: .Top,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: dotView, attribute: .Bottom,
+            relatedBy: .Equal, toItem: self, attribute: .Bottom,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: dotView, attribute: .Leading,
+            relatedBy: .Equal, toItem: self, attribute: .Leading,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: dotView, attribute: .Trailing,
+            relatedBy: .Equal, toItem: self, attribute: .Trailing,
+            multiplier: 1, constant: 0))
+        
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraint(NSLayoutConstraint(item: lineView, attribute: .Top,
+            relatedBy: .Equal, toItem: self, attribute: .Top,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: lineView, attribute: .Bottom,
+            relatedBy: .Equal, toItem: self, attribute: .Bottom,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: lineView, attribute: .Leading,
+            relatedBy: .Equal, toItem: self, attribute: .Leading,
+            multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: lineView, attribute: .Trailing,
+            relatedBy: .Equal, toItem: self, attribute: .Trailing,
+            multiplier: 1, constant: 0))
+    }
+    
     //MARK: - Variables Open For User
     private(set) public var date: NSDate? {
         didSet {
@@ -163,7 +250,33 @@ public class YFDayView: YFCalendarBaseView {
             return DayName(rawValue: dayIndex)!
         }
     }
-    
+    public var dayNameInString: String {
+        get {
+            switch dayIndex {
+            case 0:
+                return "Sunday"
+            case 1:
+                return "Monday"
+            case 2:
+                return "Tuesday"
+            case 3:
+                return "Wednesday"
+            case 4:
+                return "Thursday"
+            case 5:
+                return "Friday"
+            case 6:
+                return "Saturday"
+            default:
+                return ""
+            }
+        }
+    }
+    public var isToday: Bool {
+        get {
+            return date == NSDate().YFStandardFormatDate()
+        }
+    }
     //MARK: - Public Variables
     var components: NSDateComponents?
     var dayIndex: Int!
@@ -207,49 +320,41 @@ public class YFDayView: YFCalendarBaseView {
     private var selectionView: YFCustomizedShape!
     
     //MARK: - Life Cycle
-    init(weekView: YFWeekView, frame: CGRect, dayIndex: Int) {
+    init(weekView: YFWeekView, dayIndex: Int) {
         self.weekView = weekView
         monthView = self.weekView.monthView
         calendarView = monthView.calendarView
         appearance = calendarView.appearance!
         self.dayIndex = dayIndex
-        super.init(frame: frame)
+        super.init(frame: CGRectZero)
         self.backgroundColor = .whiteColor()
         checkWhetherIsInside()
-        if appearance.selectionCircleRadius == nil {
-            appearance.selectionCircleRadius = (frame.height / 2) * 0.8
-        }
-        if appearance.dotMarkOffsetFromDateCenter == nil {
-            appearance.dotMarkOffsetFromDateCenter = (frame.height / 2) * 0.8 - appearance.dotMarkRadius! - 2
-        }
-        let selectionViewFrame = CGRectMake(0, 0, frame.width, frame.height)
-        selectionView = YFCustomizedShape(dayView: self, shape: .CircleWithFill, frame: selectionViewFrame)
-        let dotFrame = CGRectMake(0, 0, frame.width, frame.height)
-        dotView = YFCustomizedShape(dayView: self, shape: .UnselectedDotMarks, frame: dotFrame)
+        selectionView = YFCustomizedShape(dayView: self, shape: .CircleWithFill)
+        dotView = YFCustomizedShape(dayView: self, shape: .UnselectedDotMarks)
         dotView.colors = appearance.delegate?.calendarView?(calendarView, initializeDotsForTheDay: self)
         dotView.setNeedsDisplay()
-        lineView = YFCustomizedShape(dayView: self, shape: .TopLine, frame: dotFrame)
+        lineView = YFCustomizedShape(dayView: self, shape: .TopLine)
         selectionView.alpha = 0
         if appearance.showTopLine! {
             lineView.alpha = 1
         } else {
             lineView.alpha = 0
         }
+        addSubview(lineView)
         addSubview(selectionView!)
-
-        dayLabel.frame = bounds
         addSubview(dayLabel)
-        contentView.frame = bounds
         addSubview(contentView)
         addSubview(dotView)
-        addSubview(lineView)
-        updateDisplay()
+        setConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    override public func drawRect(rect: CGRect) {
+        updateDisplay()
+    }
 }
 
 // MARK: - Animation

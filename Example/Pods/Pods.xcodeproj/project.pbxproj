@@ -30,6 +30,13 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>05F68A142226CD3C2DBDF5C9558845BF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C42D4AE4E199A1F97993053747470CB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>07060FBB5FFE71B36BE8FD3F35801CD4</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -56,6 +63,26 @@
 			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
+		</dict>
+		<key>08ED87643F61A98782165059E6F37499</key>
+		<dict>
+			<key>fileRef</key>
+			<string>BE65A3A57B86049C4DC5E1B21D970569</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0B4CD2FB28BA6A2C6492A4E7B696C3ED</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>YFCalendarDataType.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>0BB6F97211C542B8E558BD625DE13B5E</key>
 		<dict>
@@ -240,20 +267,13 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>11780DF05FAB32776DF5B445BD56790F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>836A92726C695ACEACABACEB029F2C76</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>13504208519E4FD6C13B20A8A91481F5</key>
 		<dict>
 			<key>buildConfigurationList</key>
 			<string>3FE42F22C5957F9009374FDEA828BB80</string>
 			<key>buildPhases</key>
 			<array>
-				<string>6DBA5522DB60577C6B7FBCEC25F0B719</string>
+				<string>5F4A48EB503BCC515CD4BD80230B601B</string>
 				<string>0F86C723B024044F152EFB6052C4E9A1</string>
 				<string>35329FD624D910A7BF3D317FC79936F3</string>
 			</array>
@@ -272,10 +292,10 @@
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
 		</dict>
-		<key>1610CD357B5E4882086E7E88D497CD71</key>
+		<key>171F4A44077F1292CACD0FA93740B46D</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E08BC6F67CA08511B88E12EC985381B2</string>
+			<string>F2F3B18F11D64BB12FC993A2BBDA7DE3</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -290,19 +310,6 @@
 			<string>PBXGroup</string>
 			<key>name</key>
 			<string>iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1892BC64E29B8FAE895ED3DA555C2FC0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>YFMonthView.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -381,12 +388,18 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>197C4441C1EBB124ECCBE31D9BA9F16E</key>
+		<key>198319F2CE0BF317E242A87D2CB9CE6A</key>
 		<dict>
-			<key>fileRef</key>
-			<string>3D135E0A38B7C4D4BC3D792F079AFB32</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>YFMonthView.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>1E140BDD4B1619466CF94BA08FAFAD7C</key>
 		<dict>
@@ -476,19 +489,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>28A3537677FB5481F4FC8318D713662C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>YFCalendarBaseView.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
 		<dict>
 			<key>buildConfigurations</key>
@@ -502,30 +502,6 @@
 			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
-		</dict>
-		<key>30122365B206DCF4ADB4E5E89142A3FA</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>72396C35FE0C354B89CFDC4104B0E91A</string>
-				<string>E08BC6F67CA08511B88E12EC985381B2</string>
-				<string>28A3537677FB5481F4FC8318D713662C</string>
-				<string>F051B80CD63B68EDEBAC14FA5C54BB07</string>
-				<string>836A92726C695ACEACABACEB029F2C76</string>
-				<string>A95C53078DABC0B2006529346281AE13</string>
-				<string>412205C3C1426E0731862B635D58CB2B</string>
-				<string>3D135E0A38B7C4D4BC3D792F079AFB32</string>
-				<string>1892BC64E29B8FAE895ED3DA555C2FC0</string>
-				<string>D2D1AA2A7E5C8C503E600B366773A0BB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Classes</string>
-			<key>path</key>
-			<string>Classes</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>31D3C173D40EF02FF5E837BADBF15389</key>
 		<dict>
@@ -581,13 +557,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>375D1F2717565B39ECB59C92E3288195</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F051B80CD63B68EDEBAC14FA5C54BB07</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>39FBAE7F965A497FBE3163D7675F0ED2</key>
 		<dict>
 			<key>buildConfigurationList</key>
@@ -615,19 +584,6 @@
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
 		</dict>
-		<key>3D135E0A38B7C4D4BC3D792F079AFB32</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>YFDayView.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>3DDECAD56DCEF83FAE77F4F5A9C1ED00</key>
 		<dict>
 			<key>containerPortal</key>
@@ -654,19 +610,6 @@
 			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
-		</dict>
-		<key>412205C3C1426E0731862B635D58CB2B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>YFCustomizedShape.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>41EA49C454F2D746D3CC1A00C8B711C5</key>
 		<dict>
@@ -720,6 +663,29 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>4BBC6F5475A15CA9FBB8AAB018E6C0CE</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>55996A4E8432EB6E7FE987179A33138F</string>
+				<string>BE65A3A57B86049C4DC5E1B21D970569</string>
+				<string>0B4CD2FB28BA6A2C6492A4E7B696C3ED</string>
+				<string>D8FD92B2EAF638E4B565A33E622D6C31</string>
+				<string>F2F3B18F11D64BB12FC993A2BBDA7DE3</string>
+				<string>F604B7C6E420FEDDD4D56CCB28D2AF18</string>
+				<string>A9778124894483C43CB9F25BD2402E0F</string>
+				<string>198319F2CE0BF317E242A87D2CB9CE6A</string>
+				<string>73828A480DF9EC68D6F3DC447F02CCB8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Classes</string>
+			<key>path</key>
+			<string>Classes</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>4C42D4AE4E199A1F97993053747470CB</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -732,6 +698,13 @@
 			<string>YFCalendar-dummy.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>514D1408253EF8EF901EA0D2B6B807C1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0B4CD2FB28BA6A2C6492A4E7B696C3ED</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>53683CEF62F4BA87F2CA7E3B8C0E385F</key>
 		<dict>
@@ -893,6 +866,19 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
+		<key>55996A4E8432EB6E7FE987179A33138F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>YFCalendarAppearance.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>583AD611BBDEFF3C68923E1F109C46B0</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -956,6 +942,28 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>5F4A48EB503BCC515CD4BD80230B601B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>05F68A142226CD3C2DBDF5C9558845BF</string>
+				<string>B9F7D04DC39FE49753C65793058476A6</string>
+				<string>08ED87643F61A98782165059E6F37499</string>
+				<string>514D1408253EF8EF901EA0D2B6B807C1</string>
+				<string>9DC8595F865D7881D76971EDBA499DF0</string>
+				<string>171F4A44077F1292CACD0FA93740B46D</string>
+				<string>EF620460A13E4EB430BF7744843BAEE1</string>
+				<string>6C168188D81BBD6791F379D7973455EC</string>
+				<string>FB9A999C837DA2C5178F2B3922534ABD</string>
+				<string>6251B17D2F06460083245798FD18ECAC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
 		<key>5FDD0EE181D06154D95343D403C14A12</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -968,6 +976,13 @@
 			<string>Pods-YFCalendar_Tests-acknowledgements.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6251B17D2F06460083245798FD18ECAC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>73828A480DF9EC68D6F3DC447F02CCB8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>65092DB50787F85041D72DDEBD19EBCC</key>
 		<dict>
@@ -982,42 +997,12 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>6954B667FA939777874DB9CCE100F4B0</key>
+		<key>6C168188D81BBD6791F379D7973455EC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D2D1AA2A7E5C8C503E600B366773A0BB</string>
+			<string>A9778124894483C43CB9F25BD2402E0F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>6A44FA115F5D4D38EE133A2750E39A7A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>412205C3C1426E0731862B635D58CB2B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6DBA5522DB60577C6B7FBCEC25F0B719</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>CE5487715F37AE0D569F0D95DE294079</string>
-				<string>F22F784393AA01974F26CE1F3EDB84E5</string>
-				<string>1610CD357B5E4882086E7E88D497CD71</string>
-				<string>C734DD06B953BA798A3B0C8A6A8FB12E</string>
-				<string>375D1F2717565B39ECB59C92E3288195</string>
-				<string>11780DF05FAB32776DF5B445BD56790F</string>
-				<string>A5D9C952ABD1413E3002DEDC3A78B7A6</string>
-				<string>6A44FA115F5D4D38EE133A2750E39A7A</string>
-				<string>197C4441C1EBB124ECCBE31D9BA9F16E</string>
-				<string>E90CF70BF73CFA51315F3C655B366F91</string>
-				<string>6954B667FA939777874DB9CCE100F4B0</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
 		</dict>
 		<key>6E7E5AF37923BFA48D6994B9BFC6535F</key>
 		<dict>
@@ -1039,16 +1024,18 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>72396C35FE0C354B89CFDC4104B0E91A</key>
+		<key>717EE2499272C39724C84741E92207CD</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>4BBC6F5475A15CA9FBB8AAB018E6C0CE</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>YFCalendar</string>
 			<key>path</key>
-			<string>YFCalendarAppearance.swift</string>
+			<string>YFCalendar</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1065,6 +1052,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>73828A480DF9EC68D6F3DC447F02CCB8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>YFWeekView.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>74A57BA9FD5D20CD03394D13B5D91C24</key>
 		<dict>
@@ -1204,7 +1204,7 @@
 			<key>children</key>
 			<array>
 				<string>951DE1B8D123D62A7D1596E73D31BBC1</string>
-				<string>A06267B8681D7EC50534F6B53698C4B0</string>
+				<string>717EE2499272C39724C84741E92207CD</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -1212,19 +1212,6 @@
 			<string>YFCalendar</string>
 			<key>path</key>
 			<string>../..</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>836A92726C695ACEACABACEB029F2C76</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>YFCalendarView.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1287,6 +1274,13 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>9DC8595F865D7881D76971EDBA499DF0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D8FD92B2EAF638E4B565A33E622D6C31</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>A028936FEFD87C487F5E0AB68D0D4EC0</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1297,21 +1291,6 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>Pods-YFCalendar_Tests-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A06267B8681D7EC50534F6B53698C4B0</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>30122365B206DCF4ADB4E5E89142A3FA</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>YFCalendar</string>
-			<key>path</key>
-			<string>YFCalendar</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1328,13 +1307,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>A5D9C952ABD1413E3002DEDC3A78B7A6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A95C53078DABC0B2006529346281AE13</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>A83870F48D535B3C89296B11768287CD</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -1350,7 +1322,7 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>A95C53078DABC0B2006529346281AE13</key>
+		<key>A9778124894483C43CB9F25BD2402E0F</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1359,7 +1331,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>YFCalendarViewDelegate.swift</string>
+			<string>YFDayView.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1435,6 +1407,13 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>B9F7D04DC39FE49753C65793058476A6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>55996A4E8432EB6E7FE987179A33138F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1451,6 +1430,19 @@
 			<string>SOURCE_ROOT</string>
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>BE65A3A57B86049C4DC5E1B21D970569</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>YFCalendarBaseView.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C0FB2FC27083CCCF9E463C339F58B025</key>
 		<dict>
@@ -1505,13 +1497,6 @@
 				</array>
 			</dict>
 		</dict>
-		<key>C734DD06B953BA798A3B0C8A6A8FB12E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>28A3537677FB5481F4FC8318D713662C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>CAA29E03D9DE180593641FF1FF7F0230</key>
 		<dict>
 			<key>buildConfigurationList</key>
@@ -1539,32 +1524,12 @@
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
 		</dict>
-		<key>CE5487715F37AE0D569F0D95DE294079</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4C42D4AE4E199A1F97993053747470CB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>CFBA7A7B17FE931AA54AE8F0F8BB44E6</key>
 		<dict>
 			<key>fileRef</key>
 			<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>D2D1AA2A7E5C8C503E600B366773A0BB</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>YFWeekView.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>D3EB20FDE0B4164D1737C4DF96B0266D</key>
 		<dict>
@@ -1620,6 +1585,19 @@
 				<string>13504208519E4FD6C13B20A8A91481F5</string>
 			</array>
 		</dict>
+		<key>D8FD92B2EAF638E4B565A33E622D6C31</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>YFCalendarView.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>DD8995F3A3DFD24214F837960227B72C</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1646,26 +1624,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E08BC6F67CA08511B88E12EC985381B2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>YFCalendarAppearanceDelegate.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E90CF70BF73CFA51315F3C655B366F91</key>
-		<dict>
-			<key>fileRef</key>
-			<string>1892BC64E29B8FAE895ED3DA555C2FC0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>EEDDEE647ADC0B14288530D79F150B32</key>
 		<dict>
 			<key>isa</key>
@@ -1677,7 +1635,14 @@
 			<key>targetProxy</key>
 			<string>946B51737B56DA52DB6C7B50DEBA74A6</string>
 		</dict>
-		<key>F051B80CD63B68EDEBAC14FA5C54BB07</key>
+		<key>EF620460A13E4EB430BF7744843BAEE1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F604B7C6E420FEDDD4D56CCB28D2AF18</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F2F3B18F11D64BB12FC993A2BBDA7DE3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1686,16 +1651,9 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>YFCalendarDataType.swift</string>
+			<string>YFCalendarViewDelegate.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F22F784393AA01974F26CE1F3EDB84E5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>72396C35FE0C354B89CFDC4104B0E91A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>F5BB5BCE88E5E14704F41D73B92C094F</key>
 		<dict>
@@ -1759,6 +1717,19 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
+		<key>F604B7C6E420FEDDD4D56CCB28D2AF18</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>YFCustomizedShape.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>FA491DC64FCF953A8D6EAC02C62ADDF0</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1771,6 +1742,13 @@
 			<string>Pods-YFCalendar_Example-dummy.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FB9A999C837DA2C5178F2B3922534ABD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>198319F2CE0BF317E242A87D2CB9CE6A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>FEE9DFE52A31D9CAA518764F32CD1870</key>
 		<dict>

@@ -10,10 +10,6 @@ import UIKit
 import Foundation
 
 final public class YFCalendarAppearance: NSObject {
-    
-    var weekHeight: CGFloat = 0
-    var dayWidth: CGFloat = 0
-
     var colorOfDateInsideMonth: UIColor? = .blackColor()
     var colorOfDateOutsideMonth: UIColor? = .lightGrayColor()
     var colorOfDateToday: UIColor? = .redColor()
@@ -51,7 +47,7 @@ final public class YFCalendarAppearance: NSObject {
     
     unowned let calendarView: YFCalendarView
     
-    weak var delegate: YFCalendarAppearanceDelegate? {
+    weak var delegate: YFCalendarViewDelegate? {
         didSet {
             setupAppearance()
         }
@@ -63,28 +59,28 @@ final public class YFCalendarAppearance: NSObject {
     }
     
     func setupAppearance() {
-        colorOfDateInsideMonth ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Noselected)
-        colorOfDateOutsideMonth ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Noselected)
-        colorOfDateToday ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .Today, dateState: .Noselected)
-        colorOfDateInsideMonthWhenSelected ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Selected)
-        colorOfDateOutsideMonthWhenSelected ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Selected)
-        colorOfDateTodayWhenSelected ~> delegate?.calendarViewSetColorForDateContent?(calendarView, dateType: .Today, dateState: .Selected)
+        colorOfDateInsideMonth ~> delegate?.calendarView?(calendarView, setGeneralColor: .InsideCurrentMonth, dateState: .Noselected)
+        colorOfDateOutsideMonth ~> delegate?.calendarView?(calendarView, setGeneralColor: .OutsideCurrentMonth, dateState: .Noselected)
+        colorOfDateToday ~> delegate?.calendarView?(calendarView, setGeneralColor: .Today, dateState: .Noselected)
+        colorOfDateInsideMonthWhenSelected ~> delegate?.calendarView?(calendarView, setGeneralColor: .InsideCurrentMonth, dateState: .Selected)
+        colorOfDateOutsideMonthWhenSelected ~> delegate?.calendarView?(calendarView, setGeneralColor: .OutsideCurrentMonth, dateState: .Selected)
+        colorOfDateTodayWhenSelected ~> delegate?.calendarView?(calendarView, setGeneralColor: .Today, dateState: .Selected)
         
-        fontOfDateInsideMonth ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Noselected)
-        fontOfDateOutsideMonth ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Noselected)
-        fontOfDateToday ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .Today, dateState: .Noselected)
-        fontOfDateInsideMonthWhenSelected ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .InsideCurrentMonth, dateState: .Selected)
-        fontOfDateOutsideMonthWhenSelected ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .OutsideCurrentMonth, dateState: .Selected)
-        fontOfDateTodayWhenSelected ~> delegate?.calendarViewSetFontForDateContent?(calendarView, dateType: .Today, dateState: .Selected)
+        fontOfDateInsideMonth ~> delegate?.calendarView?(calendarView, SetGeneralFont: .InsideCurrentMonth, dateState: .Noselected)
+        fontOfDateOutsideMonth ~> delegate?.calendarView?(calendarView, SetGeneralFont: .OutsideCurrentMonth, dateState: .Noselected)
+        fontOfDateToday ~> delegate?.calendarView?(calendarView, SetGeneralFont: .Today, dateState: .Noselected)
+        fontOfDateInsideMonthWhenSelected ~> delegate?.calendarView?(calendarView, SetGeneralFont: .InsideCurrentMonth, dateState: .Selected)
+        fontOfDateOutsideMonthWhenSelected ~> delegate?.calendarView?(calendarView, SetGeneralFont: .OutsideCurrentMonth, dateState: .Selected)
+        fontOfDateTodayWhenSelected ~> delegate?.calendarView?(calendarView, SetGeneralFont: .Today, dateState: .Selected)
         
         selectionCircleRadius ~> delegate?.calendarViewSetSelectionCircleRadius?(calendarView)
         selectionCircleBorderWidth ~> delegate?.calendarViewSetSelectionCircleBorderWidth?(calendarView)
-        selectionCircleBorderColorInsideMonth ~> delegate?.calendarViewSetSelectionCircleBorderColor?(calendarView, dateType: .InsideCurrentMonth)
-        selectionCircleBorderColorOutsideMonth ~> delegate?.calendarViewSetSelectionCircleBorderColor?(calendarView, dateType: .OutsideCurrentMonth)
-        selectionCircleBorderColorToday ~> delegate?.calendarViewSetSelectionCircleBorderColor?(calendarView, dateType: .Today)
-        selectionCircleFillColorInsideMonth ~> delegate?.calendarViewSetSelectionCircleFillColor?(calendarView, dateType: .InsideCurrentMonth)
-        selectionCircleFillColorOutsideMonth ~> delegate?.calendarViewSetSelectionCircleFillColor?(calendarView, dateType: .OutsideCurrentMonth)
-        selectionCircleFillColorToday ~> delegate?.calendarViewSetSelectionCircleFillColor?(calendarView, dateType: .Today)
+        selectionCircleBorderColorInsideMonth ~> delegate?.calendarView?(calendarView, SetSelectionCircleBorderColor: .InsideCurrentMonth)
+        selectionCircleBorderColorOutsideMonth ~> delegate?.calendarView?(calendarView, SetSelectionCircleBorderColor: .OutsideCurrentMonth)
+        selectionCircleBorderColorToday ~> delegate?.calendarView?(calendarView, SetSelectionCircleBorderColor: .Today)
+        selectionCircleFillColorInsideMonth ~> delegate?.calendarView?(calendarView, SetSelectionCircleFillColor: .InsideCurrentMonth)
+        selectionCircleFillColorOutsideMonth ~> delegate?.calendarView?(calendarView, SetSelectionCircleFillColor: .OutsideCurrentMonth)
+        selectionCircleFillColorToday ~> delegate?.calendarView?(calendarView, SetSelectionCircleFillColor: .Today)
         
         dotMarkRadius ~> delegate?.calendarViewSetDotMarkRadius?(calendarView)
         dotMarkSelectedColor ~> delegate?.calendarViewSetDotMarkSelectedColor?(calendarView)
@@ -103,5 +99,3 @@ public func ~> <T: Any>(inout lhs: T?, rhs: T?) -> T? {
     }
     return lhs
 }
-
-//

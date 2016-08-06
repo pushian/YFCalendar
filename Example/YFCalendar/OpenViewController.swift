@@ -9,103 +9,124 @@
 
 import UIKit
 import YFCalendar
+class BaseButton: UIButton {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setTitleColor(.whiteColor(), forState: .Normal)
+        titleLabel?.font = UIFont.systemFontOfSize(10)
+        backgroundColor = UIColor.grayColor()
+        layer.cornerRadius = 3
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 class OpenViewController: UIViewController {
     
-    var calendarView: YFCalendarView! = {
-        let t = YFCalendarView(frame: CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 300))
-        t.backgroundColor = UIColor.orangeColor()
+    var inforLabel: UILabel! = {
+        let t = UILabel()
+        t.text = "Your Customized Calendar"
+        t.font = UIFont.systemFontOfSize(20)
+        t.textColor = .blackColor()
+        t.textAlignment = .Center
         return t
     }()
-    
+    var inforLabelTwo: UILabel! = {
+        let t = UILabel()
+        t.text = "More features and settings are available through the delegate functions. Please check the ReadMe file regarding the details."
+        t.font = UIFont.systemFontOfSize(12)
+        t.textColor = .blackColor()
+        t.textAlignment = .Center
+        t.numberOfLines = 0
+        return t
+    }()
+    var monthLabel: UILabel! = {
+        let t = UILabel()
+        t.font = UIFont.systemFontOfSize(15)
+        t.textColor = .blackColor()
+        t.textAlignment = .Center
+        return t
+    }()
     var buttonOne: UIButton! = {
-        let t = UIButton(frame: CGRectMake(10, 10, 100, 30))
-        t.setTitle("Previous", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+        let t = UIButton()
+        t.setImage(UIImage(named: "arrow"), forState: .Normal)
         return t
     }()
     
     var buttonTwo: UIButton! = {
-        let t = UIButton(frame: CGRectMake(10, 50, 100, 30))
-        t.setTitle("Next", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+        let t = UIButton()
+        t.setImage(UIImage(named: "arrow"), forState: .Normal)
+        t.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+        return t
+    }()
+    var calendarView: YFCalendarView! = {
+        let t = YFCalendarView()
+        t.layer.cornerRadius = 5
+        t.layer.borderWidth = 1
+        t.layer.borderColor = UIColor.darkGrayColor().CGColor
+        t.backgroundColor = UIColor.orangeColor()
+        return t
+    }()
+    
+    
+    var buttonEight: UIButton! = {
+        let t = UIButton()
+        t.setTitle("Today", forState: .Normal)
+        t.titleLabel?.font = UIFont.systemFontOfSize(15)
+        t.setTitleColor(.blackColor(), forState: .Normal)
         return t
     }()
     
     var dayInputView: UITextField! = {
-        let t = UITextField(frame: CGRectMake(10, 90, 100, 30))
+        let t = UITextField()
         t.backgroundColor = .whiteColor()
         t.placeholder = "yyyy-mm-dd"
+        t.leftView = UIView(frame: CGRectMake(0, 0, 10, 1))
+        t.leftViewMode = .Always
+        t.layer.borderColor = UIColor.lightGrayColor().CGColor
+        t.layer.borderWidth = 1
+        t.font = UIFont.systemFontOfSize(10)
         return t
     }()
     
-    var buttonThree: UIButton! = {
-        let t = UIButton(frame: CGRectMake(10, 130, 100, 30))
-        t.setTitle("Tap", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+    var buttonThree: BaseButton! = {
+        let t = BaseButton()
+        t.setTitle("  Tap  ", forState: .Normal)
         return t
     }()
-    var buttonFour: UIButton! = {
-        let t = UIButton(frame: CGRectMake(10, 170, 100, 30))
-        t.setTitle("Select", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+    var buttonFour: BaseButton! = {
+        let t = BaseButton()
+        t.setTitle("  Select  ", forState: .Normal)
         return t
     }()
-    var buttonFive: UIButton! = {
-        let t = UIButton(frame: CGRectMake(10, 210, 100, 30))
-        t.setTitle("Deselect", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+    var buttonFive: BaseButton! = {
+        let t = BaseButton()
+        t.setTitle("  Deselect  ", forState: .Normal)
         return t
     }()
-    var buttonSix: UIButton! = {
-        let t = UIButton(frame: CGRectMake(10, 250, 100, 30))
-        t.setTitle("Single Dot", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+    var buttonSix: BaseButton! = {
+        let t = BaseButton()
+        t.setTitle("  Single Dot  ", forState: .Normal)
         return t
     }()
     
-    var buttonNine: UIButton! = {
-        let t = UIButton(frame: CGRectMake(120, 250, 100, 30))
-        t.setTitle("Double Dots", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+    var buttonNine: BaseButton! = {
+        let t = BaseButton()
+        t.setTitle("  Double Dots  ", forState: .Normal)
         return t
     }()
     
-    var buttonTen: UIButton! = {
-        let t = UIButton(frame: CGRectMake(120, 290, 100, 30))
-        t.setTitle("Add Dots", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
+    var buttonTen: BaseButton! = {
+        let t = BaseButton()
+        t.setTitle("  Add One More  ", forState: .Normal)
         return t
     }()
     
-    var buttonSeven: UIButton! = {
-        let t = UIButton(frame: CGRectMake(10, 290, 100, 30))
-        t.setTitle("Clear Dots", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
-        return t
-    }()
-    
-    var buttonEight: UIButton! = {
-        let t = UIButton(frame: CGRectMake(120, 10, 100, 30))
-        t.setTitle("Today", forState: .Normal)
-        t.backgroundColor = .blackColor()
-        t.setTitleColor(.whiteColor(), forState: .Normal)
-        return t
-    }()
-    
-    var lowerView: UIView! = {
-        let t = UIView(frame: CGRectZero)
-        t.backgroundColor = UIColor.blueColor()
-        t.translatesAutoresizingMaskIntoConstraints = false
+    var buttonSeven: BaseButton! = {
+        let t = BaseButton()
+        t.setTitle("  Clear Dots  ", forState: .Normal)
         return t
     }()
     
@@ -114,22 +135,22 @@ class OpenViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         view.backgroundColor = UIColor.whiteColor()
+        view.addSubview(monthLabel)
+        view.addSubview(inforLabel)
         view.addSubview(calendarView)
-        view.addSubview(lowerView)
-        lowerView.addSubview(buttonOne)
-        lowerView.addSubview(buttonTwo)
-        lowerView.addSubview(dayInputView)
-        lowerView.addSubview(buttonThree)
-        lowerView.addSubview(buttonFour)
-        lowerView.addSubview(buttonFive)
-        lowerView.addSubview(buttonSix)
-        lowerView.addSubview(buttonSeven)
-        lowerView.addSubview(buttonEight)
-        lowerView.addSubview(buttonNine)
-        lowerView.addSubview(buttonTen)
-        
+        view.addSubview(buttonOne)
+        view.addSubview(buttonTwo)
+        view.addSubview(dayInputView)
+        view.addSubview(buttonThree)
+        view.addSubview(buttonFour)
+        view.addSubview(buttonFive)
+        view.addSubview(buttonSix)
+        view.addSubview(buttonSeven)
+        view.addSubview(buttonEight)
+        view.addSubview(buttonNine)
+        view.addSubview(buttonTen)
+        view.addSubview(inforLabelTwo)
         setConstraints()
-        calendarView.calendarAppearanceDelegate = self
         calendarView.calendarViewDelegate = self
         buttonOne.addTarget(self, action: #selector(showPrevious), forControlEvents: .TouchUpInside)
         buttonTwo.addTarget(self, action: #selector(showNext), forControlEvents: .TouchUpInside)
@@ -140,8 +161,7 @@ class OpenViewController: UIViewController {
         buttonSeven.addTarget(self, action: #selector(unDotADay), forControlEvents: .TouchUpInside)
         buttonEight.addTarget(self, action: #selector(selectToday), forControlEvents: .TouchUpInside)
         buttonNine.addTarget(self, action: #selector(doubleDotADay), forControlEvents: .TouchUpInside)
-        buttonTen.addTarget(self, action: #selector(addDotsToADay), forControlEvents: .TouchUpInside)
-        
+        buttonTen.addTarget(self, action: #selector(addOneMoreToADay), forControlEvents: .TouchUpInside)
     }
     
     override func didReceiveMemoryWarning() {
@@ -149,129 +169,45 @@ class OpenViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //
-    func setConstraints() {
-        let topConstrainsTwo = NSLayoutConstraint(item: lowerView, attribute: .Top, relatedBy: .Equal, toItem: calendarView, attribute: .Bottom, multiplier: 1, constant: 0)
-        view.addConstraint(topConstrainsTwo)
-        let bottomConstrainsTwo = NSLayoutConstraint(item: lowerView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
-        view.addConstraint(bottomConstrainsTwo)
-        let leadConstrainsTwo = NSLayoutConstraint(item: lowerView, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0)
-        view.addConstraint(leadConstrainsTwo)
-        let trailConstrainsTwo = NSLayoutConstraint(item: lowerView, attribute: .Trailing, relatedBy: .Equal, toItem: view, attribute: .Trailing, multiplier: 1, constant: 0)
-        view.addConstraint(trailConstrainsTwo)
-    }
-    
-    func showPrevious() {
-        calendarView.presentPreviousMonth()
-    }
-    
-    func showNext() {
-        calendarView.presentNextMonth()
-    }
-    
-    func tapADay() {
-        var format = NSDateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dayStr = dayInputView.text
-        if let date = format.dateFromString(dayStr!) {
-            calendarView.sendTapToADate(date)
-        }
-    }
-    func selectADay() {
-        var format = NSDateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dayStr = dayInputView.text
-        if let date = format.dateFromString(dayStr!) {
-            calendarView.selectADate(date)
-        }
-    }
-    func deselectADay() {
-        var format = NSDateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dayStr = dayInputView.text
-        if let date = format.dateFromString(dayStr!) {
-            calendarView.deselectADate(date)
-        }
-    }
-    func singleDotADay() {
-        var format = NSDateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dayStr = dayInputView.text
-        if let date = format.dateFromString(dayStr!) {
-            calendarView.updateDotsToDate(date, dotColorArrays: [UIColor.blueColor()])
-        }
-    }
-    func doubleDotADay() {
-        var format = NSDateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dayStr = dayInputView.text
-        if let date = format.dateFromString(dayStr!) {
-            calendarView.updateDotsToDate(date, dotColorArrays: [UIColor.blueColor(), UIColor.greenColor()])
-        }
-    }
-    func addDotsToADay() {
-        var format = NSDateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dayStr = dayInputView.text
-        if let date = format.dateFromString(dayStr!) {
-            calendarView.addDotsToDate(date, dotColorArrays: [UIColor.blueColor(), UIColor.greenColor()])
-        }
-    }
-    func unDotADay() {
-        var format = NSDateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        let dayStr = dayInputView.text
-        if let date = format.dateFromString(dayStr!) {
-            calendarView.removeDotFromDate(date)
-        }
-    }
-    func selectToday() {
-        calendarView.selectToday()
-    }
 }
 
 extension OpenViewController: YFCalendarViewDelegate {
     func calendarViewAutoSelectToday(calenderView: YFCalendarView) -> Bool {
         return true
     }
-    
     func calendarViewShowDateOutsideOfTheCurrentMonth(calenderView: YFCalendarView) -> Bool {
         return false
     }
-    
+    func calendarView(calenderView: YFCalendarView, autoSelectTheFirstDateOfTheNextMonth mode: SelectionMode) -> Bool {
+        return true
+    }
     func calendarViewSetDateSelectionMode(calenderView: YFCalendarView) -> SelectionMode {
-        return .Multiple
+        return .Single
     }
     func calendarViewSetScrollDirection(calenderView: YFCalendarView) -> CalendarScrollDirection {
-        return .Vertical
+        return .Horizontal
+    }
+    func calendarViewSetFontForDateContent(calenderView: YFCalendarView, dateType: DateType, dateState: DateState) -> UIFont? {
+        return UIFont.systemFontOfSize(15)
     }
     func calendarView(calenderView: YFCalendarView, didSelectADay selectedDay: YFDayView) {
-    }
-    
-    func calendarView(calenderView: YFCalendarView, willPresentTheMonth currentMonth: YFMonthView) {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        debugPrint("\(format.stringFromDate(selectedDay.date!)) has been selected.")
     }
     func calendarView(calenderView: YFCalendarView, didPresentTheMonth currentMonth: YFMonthView) {
+        let monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        monthLabel.text = monthArray[currentMonth.currentMonth! - 1]
     }
     
-}
-
-extension OpenViewController: YFCalendarAppearanceDelegate {
     func calendarViewSetDotMarkRadius(calenderView: YFCalendarView) -> CGFloat {
         return 1
     }
     func calendarViewSetDistanceBetweenDots(calenderView: YFCalendarView) -> CGFloat {
         return 6
     }
-    
-    func calendarView(calenderView: YFCalendarView, disableUserInteractionForTheDay: YFDayView) -> Bool {
-        return false
-    }
-    func calendarView(calenderView: YFCalendarView, initializeDotsForTheDay theDay: YFDayView) -> [UIColor]? {
-        
-        return nil
-    }
     func calendarView(calenderView: YFCalendarView, customizeColorForTheDay theDay: YFDayView, dateState: DateState) -> UIColor? {
-        if theDay.dayName == .Saturday || theDay.dayName == .Sunday {
+        if (theDay.dayName == .Saturday || theDay.dayName == .Sunday) && !theDay.isToday {
             if dateState == .Noselected {
                 return UIColor.lightGrayColor()
             } else {
@@ -281,17 +217,18 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
         return nil
     }
     func calendarView(calenderView: YFCalendarView, customizeSelectionCircleBorderColorForTheDay theDay: YFDayView) -> UIColor? {
-        if theDay.dayName == .Saturday || theDay.dayName == .Sunday {
+        if (theDay.dayName == .Saturday || theDay.dayName == .Sunday) && !theDay.isToday {
             return UIColor.lightGrayColor()
         }
         return nil
     }
     func calendarView(calenderView: YFCalendarView, customizeSelectionCircleFillColorForTheDay theDay: YFDayView) -> UIColor? {
-        if theDay.dayName == .Saturday || theDay.dayName == .Sunday {
+        if (theDay.dayName == .Saturday || theDay.dayName == .Sunday) && !theDay.isToday {
             return UIColor.lightGrayColor()
         }
         return nil
     }
+    
     func calendarView(calenderView: YFCalendarView, customizeContentViewForTheDay theDay: YFDayView, dateState: DateState) -> UIView? {
         let unit = NSCalendarUnit.Day.union(NSCalendarUnit.Month)
         let component = NSCalendar.currentCalendar().components(unit, fromDate: theDay.date!)
@@ -322,9 +259,161 @@ extension OpenViewController: YFCalendarAppearanceDelegate {
         }
         return nil
     }
+}
+
+extension OpenViewController {
+    func showPrevious() {
+        calendarView.presentPreviousMonth()
+    }
     
-    func calendarViewSetFontForDateContent(calenderView: YFCalendarView, dateType: DateType, dateState: DateState) -> UIFont? {
-        return UIFont.systemFontOfSize(15)
+    func showNext() {
+        calendarView.presentNextMonth()
+    }
+    
+    func tapADay() {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.sendTapToADate(date)
+        }
+    }
+    func selectADay() {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.selectADate(date)
+        }
+    }
+    func deselectADay() {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.deselectADate(date)
+        }
+    }
+    func singleDotADay() {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.updateDotsToDate(date, dotColorArrays: [UIColor.blueColor()])
+        }
+    }
+    func doubleDotADay() {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.updateDotsToDate(date, dotColorArrays: [UIColor.blueColor(), UIColor.greenColor()])
+        }
+    }
+    func addOneMoreToADay() {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.addDotsToDate(date, dotColorArrays: [UIColor.blueColor()])
+        }
+    }
+    func unDotADay() {
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let dayStr = dayInputView.text
+        if let date = format.dateFromString(dayStr!) {
+            calendarView.removeDotFromDate(date)
+        }
+    }
+    func selectToday() {
+        calendarView.selectToday()
+    }
+}
+
+extension OpenViewController {
+    func setConstraints() {
+        inforLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: inforLabel, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 20))
+        view.addConstraint(NSLayoutConstraint(item: inforLabel, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: inforLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: inforLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50))
+        
+        buttonOne.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonOne, attribute: .CenterY, relatedBy: .Equal, toItem: monthLabel, attribute: .CenterY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: buttonOne, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: buttonOne, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20))
+
+        monthLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: monthLabel, attribute: .Leading, relatedBy: .Equal, toItem: buttonOne, attribute: .Trailing, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: monthLabel, attribute: .Top, relatedBy: .Equal, toItem: inforLabel, attribute: .Bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: monthLabel, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50))
+        view.addConstraint(NSLayoutConstraint(item: monthLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+
+        buttonTwo.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonTwo, attribute: .CenterY, relatedBy: .Equal, toItem: monthLabel, attribute: .CenterY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: buttonTwo, attribute: .Leading, relatedBy: .Equal, toItem: monthLabel, attribute: .Trailing, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: buttonTwo, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20))
+
+        buttonEight.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonEight, attribute: .CenterY, relatedBy: .Equal, toItem: monthLabel, attribute: .CenterY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: buttonEight, attribute: .Trailing, relatedBy: .Equal, toItem: calendarView, attribute: .Trailing, multiplier: 1, constant: -10))
+        
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: calendarView, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: calendarView, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: -10))
+        view.addConstraint(NSLayoutConstraint(item: calendarView, attribute: .Top, relatedBy: .Equal, toItem: monthLabel, attribute: .Bottom, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: calendarView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 250))
+        
+        dayInputView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: dayInputView, attribute: .Top, relatedBy: .Equal, toItem: calendarView, attribute: .Bottom, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: dayInputView, attribute: .Leading, relatedBy: .Equal, toItem: buttonOne, attribute: .Leading, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: dayInputView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 100))
+        view.addConstraint(NSLayoutConstraint(item: dayInputView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+        
+        buttonThree.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonThree, attribute: .CenterY, relatedBy: .Equal, toItem: dayInputView, attribute: .CenterY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: buttonThree, attribute: .Leading, relatedBy: .Equal, toItem: dayInputView, attribute: .Trailing, multiplier: 1, constant: 5))
+        view.addConstraint(NSLayoutConstraint(item: buttonThree, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+
+        buttonFour.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonFour, attribute: .CenterY, relatedBy: .Equal, toItem: dayInputView, attribute: .CenterY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: buttonFour, attribute: .Leading, relatedBy: .Equal, toItem: buttonThree, attribute: .Trailing, multiplier: 1, constant: 5))
+        view.addConstraint(NSLayoutConstraint(item: buttonFour, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+
+        buttonFive.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonFive, attribute: .CenterY, relatedBy: .Equal, toItem: dayInputView, attribute: .CenterY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: buttonFive, attribute: .Leading, relatedBy: .Equal, toItem: buttonFour, attribute: .Trailing, multiplier: 1, constant: 5))
+        view.addConstraint(NSLayoutConstraint(item: buttonFive, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+        
+        buttonSix.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonSix, attribute: .Top, relatedBy: .Equal, toItem: buttonFive, attribute: .Bottom, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: buttonSix, attribute: .Leading, relatedBy: .Equal, toItem: calendarView, attribute: .Leading, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: buttonSix, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+
+        buttonNine.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonNine, attribute: .Top, relatedBy: .Equal, toItem: buttonFive, attribute: .Bottom, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: buttonNine, attribute: .Leading, relatedBy: .Equal, toItem: buttonSix, attribute: .Trailing, multiplier: 1, constant: 5))
+        view.addConstraint(NSLayoutConstraint(item: buttonNine, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+
+        
+        buttonTen.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonTen, attribute: .Top, relatedBy: .Equal, toItem: buttonFive, attribute: .Bottom, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: buttonTen, attribute: .Leading, relatedBy: .Equal, toItem: buttonNine, attribute: .Trailing, multiplier: 1, constant: 5))
+        view.addConstraint(NSLayoutConstraint(item: buttonTen, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+
+        
+        buttonSeven.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: buttonSeven, attribute: .Top, relatedBy: .Equal, toItem: buttonFive, attribute: .Bottom, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: buttonSeven, attribute: .Leading, relatedBy: .Equal, toItem: buttonTen, attribute: .Trailing, multiplier: 1, constant: 5))
+        view.addConstraint(NSLayoutConstraint(item: buttonSeven, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 25))
+        
+        inforLabelTwo.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraint(NSLayoutConstraint(item: inforLabelTwo, attribute: .Top, relatedBy: .Equal, toItem: buttonSeven, attribute: .Bottom, multiplier: 1, constant: 10))
+        view.addConstraint(NSLayoutConstraint(item: inforLabelTwo, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: inforLabelTwo, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: inforLabelTwo, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1, constant: -10))
+
     }
 }
 

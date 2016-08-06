@@ -20,14 +20,14 @@ public class YFCustomizedShape: UIView {
     var strokeColor: UIColor?
     var fillColor: UIColor?
     
-    init(dayView: YFDayView, shape: ShapeType, frame: CGRect) {
+    init(dayView: YFDayView, shape: ShapeType) {
         self.dayView = dayView
         weekView = self.dayView.weekView
         monthView = weekView.monthView
         calendarView = monthView.calendarView
         appearance = calendarView.appearance!
         self.shape = shape
-        super.init(frame: frame)
+        super.init(frame: CGRectZero)
         backgroundColor = UIColor.clearColor()
     }
     
@@ -36,6 +36,13 @@ public class YFCustomizedShape: UIView {
     }
     
     override public func drawRect(rect: CGRect) {
+        if appearance.selectionCircleRadius == nil {
+            appearance.selectionCircleRadius = (frame.height / 2) * 0.7
+        }
+        if appearance.dotMarkOffsetFromDateCenter == nil {
+            appearance.dotMarkOffsetFromDateCenter = (frame.height / 2) * 0.7 - appearance.dotMarkRadius! - 2
+        }
+        
         if let shape = shape {
             switch shape {
             case .CircleWithFill:
@@ -106,7 +113,7 @@ public class YFCustomizedShape: UIView {
                         for each in colors {
                             let path = circlePath(appearance.dotMarkRadius!, xOffset: start, yOffset: yOff)
                             start += appearance.distanceBetweenDots!
-                            if appearance.dotMarkSelectedColor != .clearColor() {
+                            if appearance.dotMarkSelectedColor != nil {
                                 strokeColor = appearance.dotMarkSelectedColor
                                 fillColor = appearance.dotMarkSelectedColor
                                 strokeColor!.setStroke()
@@ -136,7 +143,7 @@ public class YFCustomizedShape: UIView {
     }
     
     func circlePath(radius: CGFloat, xOffset: CGFloat, yOffset: CGFloat) -> UIBezierPath {
-        let arcCenter = CGPoint(x: frame.width / 2.0 + xOffset, y: frame.height / 2.0 + yOffset)
+        let arcCenter = CGPoint(x: center.x + xOffset, y: center.y + yOffset)
         let startAngle = CGFloat(0)
         let endAngle = CGFloat(M_PI * 2.0)
         let clockwise = true
